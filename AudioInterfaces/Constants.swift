@@ -8,13 +8,13 @@
 
 import UIKit
 
+
 class Constants: NSObject {
     
-    let π = CGFloat(M_PI)
-    var knobStartAngle: CGFloat
-    var knobEndAngle: CGFloat
     
-    let knobWidth: CGFloat = 76.0
+    let π = CGFloat(M_PI)
+    let knobDimension: CGFloat = 76.0
+    var padding: CGFloat = 4.0 // This is set in order to prevent image cuts in the presentation of the knob when it is tangential to the view.bounds
     
     //Set different max/min values (scale) for different purposes
     let maximumVolumeValue: Float = 10.0
@@ -25,9 +25,7 @@ class Constants: NSObject {
     static let sharedValues = Constants()
     
     override init () {
-        knobStartAngle = 3 * π / 4
-        knobEndAngle = π / 4
-        super.init()
+    super.init()
     }
     
     

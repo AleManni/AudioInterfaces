@@ -15,8 +15,8 @@
 		5A8FC90D1D0D4782006C5A20 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8FC90C1D0D4782006C5A20 /* Constants.swift */; };
 		5A8FC9101D0D47AF006C5A20 /* ContinuousKnobModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8FC90F1D0D47AF006C5A20 /* ContinuousKnobModel.swift */; };
 		5A8FC9131D0D47E8006C5A20 /* RotationGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8FC9121D0D47E8006C5A20 /* RotationGestureRecognizer.swift */; };
-		5A8FC9151D0D48B6006C5A20 /* ContinuousKnobView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8FC9141D0D48B6006C5A20 /* ContinuousKnobView.swift */; };
-		5A8FC9171D0D48C9006C5A20 /* ContinuousKnobView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A8FC9161D0D48C9006C5A20 /* ContinuousKnobView.xib */; };
+		5A8FC9151D0D48B6006C5A20 /* KnobView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8FC9141D0D48B6006C5A20 /* KnobView.swift */; };
+		5A8FC9171D0D48C9006C5A20 /* KnobView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A8FC9161D0D48C9006C5A20 /* KnobView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,8 +42,8 @@
 		5A8FC90C1D0D4782006C5A20 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		5A8FC90F1D0D47AF006C5A20 /* ContinuousKnobModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContinuousKnobModel.swift; sourceTree = "<group>"; };
 		5A8FC9121D0D47E8006C5A20 /* RotationGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RotationGestureRecognizer.swift; sourceTree = "<group>"; };
-		5A8FC9141D0D48B6006C5A20 /* ContinuousKnobView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContinuousKnobView.swift; sourceTree = "<group>"; };
-		5A8FC9161D0D48C9006C5A20 /* ContinuousKnobView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContinuousKnobView.xib; sourceTree = "<group>"; };
+		5A8FC9141D0D48B6006C5A20 /* KnobView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KnobView.swift; sourceTree = "<group>"; };
+		5A8FC9161D0D48C9006C5A20 /* KnobView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KnobView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,8 +126,8 @@
 		5A8FC9181D0D48D2006C5A20 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				5A8FC9141D0D48B6006C5A20 /* ContinuousKnobView.swift */,
-				5A8FC9161D0D48C9006C5A20 /* ContinuousKnobView.xib */,
+				5A8FC9141D0D48B6006C5A20 /* KnobView.swift */,
+				5A8FC9161D0D48C9006C5A20 /* KnobView.xib */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -213,7 +213,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5A8FC9171D0D48C9006C5A20 /* ContinuousKnobView.xib in Resources */,
+				5A8FC9171D0D48C9006C5A20 /* KnobView.xib in Resources */,
 				5A8FC8F71D0D4442006C5A20 /* LaunchScreen.storyboard in Resources */,
 				5A8FC8F41D0D4442006C5A20 /* Assets.xcassets in Resources */,
 				5A8FC8F21D0D4442006C5A20 /* Main.storyboard in Resources */,
@@ -234,7 +234,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5A8FC9151D0D48B6006C5A20 /* ContinuousKnobView.swift in Sources */,
+				5A8FC9151D0D48B6006C5A20 /* KnobView.swift in Sources */,
 				5A8FC9101D0D47AF006C5A20 /* ContinuousKnobModel.swift in Sources */,
 				5A8FC8ED1D0D4442006C5A20 /* AppDelegate.swift in Sources */,
 				5A8FC90D1D0D4782006C5A20 /* Constants.swift in Sources */,

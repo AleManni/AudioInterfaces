@@ -31,12 +31,11 @@ protocol continuousKnobValueDelegate {
     
     let π = Constants.sharedValues.π
     
-    var startAngle = Constants.sharedValues.knobStartAngle
-    var endAngle = Constants.sharedValues.knobEndAngle
+    
     
     var minimumValue = Constants.sharedValues.minimumVolumeValue
     var maximumValue = Constants.sharedValues.maximumVolumeValue
-    var knobWidth = Constants.sharedValues.knobWidth
+    
     var padding: CGFloat = 4.0 // This is set in order to prevent image cuts in the presentation of the view when it is tangential to the view.bounds
     
     var delegate: continuousKnobValueDelegate?
