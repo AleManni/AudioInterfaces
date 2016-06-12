@@ -2,7 +2,7 @@
 //  Constants.swift
 //  Flo
 //
-//  Created by Carolina Gigler on 19/05/2016.
+//  Created by Alessandro Manni on 19/05/2016.
 //  Copyright © 2016 Alessandro Manni - Nodes Agency. All rights reserved.
 //
 
