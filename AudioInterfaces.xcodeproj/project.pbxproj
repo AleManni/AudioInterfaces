@@ -8,11 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		5A8FC8ED1D0D4442006C5A20 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8FC8EC1D0D4442006C5A20 /* AppDelegate.swift */; };
-		5A8FC8EF1D0D4442006C5A20 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8FC8EE1D0D4442006C5A20 /* ViewController.swift */; };
 		5A8FC8F21D0D4442006C5A20 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A8FC8F01D0D4442006C5A20 /* Main.storyboard */; };
 		5A8FC8F41D0D4442006C5A20 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A8FC8F31D0D4442006C5A20 /* Assets.xcassets */; };
 		5A8FC8F71D0D4442006C5A20 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A8FC8F51D0D4442006C5A20 /* LaunchScreen.storyboard */; };
 		5A8FC9021D0D4442006C5A20 /* AudioInterfacesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8FC9011D0D4442006C5A20 /* AudioInterfacesTests.swift */; };
+		5A8FC90D1D0D4782006C5A20 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8FC90C1D0D4782006C5A20 /* Constants.swift */; };
+		5A8FC9101D0D47AF006C5A20 /* ContinuousKnobModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8FC90F1D0D47AF006C5A20 /* ContinuousKnobModel.swift */; };
+		5A8FC9131D0D47E8006C5A20 /* RotationGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8FC9121D0D47E8006C5A20 /* RotationGestureRecognizer.swift */; };
+		5A8FC9151D0D48B6006C5A20 /* ContinuousKnobView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8FC9141D0D48B6006C5A20 /* ContinuousKnobView.swift */; };
+		5A8FC9171D0D48C9006C5A20 /* ContinuousKnobView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A8FC9161D0D48C9006C5A20 /* ContinuousKnobView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,7 +32,6 @@
 /* Begin PBXFileReference section */
 		5A8FC8E91D0D4442006C5A20 /* AudioInterfaces.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AudioInterfaces.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A8FC8EC1D0D4442006C5A20 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		5A8FC8EE1D0D4442006C5A20 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		5A8FC8F11D0D4442006C5A20 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5A8FC8F31D0D4442006C5A20 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5A8FC8F61D0D4442006C5A20 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -36,6 +39,11 @@
 		5A8FC8FD1D0D4442006C5A20 /* AudioInterfacesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AudioInterfacesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A8FC9011D0D4442006C5A20 /* AudioInterfacesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioInterfacesTests.swift; sourceTree = "<group>"; };
 		5A8FC9031D0D4442006C5A20 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5A8FC90C1D0D4782006C5A20 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		5A8FC90F1D0D47AF006C5A20 /* ContinuousKnobModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContinuousKnobModel.swift; sourceTree = "<group>"; };
+		5A8FC9121D0D47E8006C5A20 /* RotationGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RotationGestureRecognizer.swift; sourceTree = "<group>"; };
+		5A8FC9141D0D48B6006C5A20 /* ContinuousKnobView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContinuousKnobView.swift; sourceTree = "<group>"; };
+		5A8FC9161D0D48C9006C5A20 /* ContinuousKnobView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContinuousKnobView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,7 +86,9 @@
 			isa = PBXGroup;
 			children = (
 				5A8FC8EC1D0D4442006C5A20 /* AppDelegate.swift */,
-				5A8FC8EE1D0D4442006C5A20 /* ViewController.swift */,
+				5A8FC90E1D0D478A006C5A20 /* Shared */,
+				5A8FC9111D0D47B7006C5A20 /* Model */,
+				5A8FC9181D0D48D2006C5A20 /* UI */,
 				5A8FC8F01D0D4442006C5A20 /* Main.storyboard */,
 				5A8FC8F31D0D4442006C5A20 /* Assets.xcassets */,
 				5A8FC8F51D0D4442006C5A20 /* LaunchScreen.storyboard */,
@@ -94,6 +104,32 @@
 				5A8FC9031D0D4442006C5A20 /* Info.plist */,
 			);
 			path = AudioInterfacesTests;
+			sourceTree = "<group>";
+		};
+		5A8FC90E1D0D478A006C5A20 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				5A8FC90C1D0D4782006C5A20 /* Constants.swift */,
+				5A8FC9121D0D47E8006C5A20 /* RotationGestureRecognizer.swift */,
+			);
+			name = Shared;
+			sourceTree = "<group>";
+		};
+		5A8FC9111D0D47B7006C5A20 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				5A8FC90F1D0D47AF006C5A20 /* ContinuousKnobModel.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		5A8FC9181D0D48D2006C5A20 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				5A8FC9141D0D48B6006C5A20 /* ContinuousKnobView.swift */,
+				5A8FC9161D0D48C9006C5A20 /* ContinuousKnobView.xib */,
+			);
+			name = UI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -177,6 +213,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A8FC9171D0D48C9006C5A20 /* ContinuousKnobView.xib in Resources */,
 				5A8FC8F71D0D4442006C5A20 /* LaunchScreen.storyboard in Resources */,
 				5A8FC8F41D0D4442006C5A20 /* Assets.xcassets in Resources */,
 				5A8FC8F21D0D4442006C5A20 /* Main.storyboard in Resources */,
@@ -197,8 +234,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5A8FC8EF1D0D4442006C5A20 /* ViewController.swift in Sources */,
+				5A8FC9151D0D48B6006C5A20 /* ContinuousKnobView.swift in Sources */,
+				5A8FC9101D0D47AF006C5A20 /* ContinuousKnobModel.swift in Sources */,
 				5A8FC8ED1D0D4442006C5A20 /* AppDelegate.swift in Sources */,
+				5A8FC90D1D0D4782006C5A20 /* Constants.swift in Sources */,
+				5A8FC9131D0D47E8006C5A20 /* RotationGestureRecognizer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -331,6 +371,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.info-alessandromanni.AudioInterfaces";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -342,6 +383,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.info-alessandromanni.AudioInterfaces";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
