@@ -17,6 +17,7 @@
 		5A8FC9131D0D47E8006C5A20 /* RotationGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8FC9121D0D47E8006C5A20 /* RotationGestureRecognizer.swift */; };
 		5A8FC9151D0D48B6006C5A20 /* KnobView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8FC9141D0D48B6006C5A20 /* KnobView.swift */; };
 		5A8FC9171D0D48C9006C5A20 /* KnobView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A8FC9161D0D48C9006C5A20 /* KnobView.xib */; };
+		5A8FC91A1D0D89CF006C5A20 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8FC9191D0D89CF006C5A20 /* ViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +45,7 @@
 		5A8FC9121D0D47E8006C5A20 /* RotationGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RotationGestureRecognizer.swift; sourceTree = "<group>"; };
 		5A8FC9141D0D48B6006C5A20 /* KnobView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KnobView.swift; sourceTree = "<group>"; };
 		5A8FC9161D0D48C9006C5A20 /* KnobView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KnobView.xib; sourceTree = "<group>"; };
+		5A8FC9191D0D89CF006C5A20 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +92,7 @@
 				5A8FC9111D0D47B7006C5A20 /* Model */,
 				5A8FC9181D0D48D2006C5A20 /* UI */,
 				5A8FC8F01D0D4442006C5A20 /* Main.storyboard */,
+				5A8FC9191D0D89CF006C5A20 /* ViewController.swift */,
 				5A8FC8F31D0D4442006C5A20 /* Assets.xcassets */,
 				5A8FC8F51D0D4442006C5A20 /* LaunchScreen.storyboard */,
 				5A8FC8F81D0D4442006C5A20 /* Info.plist */,
@@ -234,6 +237,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A8FC91A1D0D89CF006C5A20 /* ViewController.swift in Sources */,
 				5A8FC9151D0D48B6006C5A20 /* KnobView.swift in Sources */,
 				5A8FC9101D0D47AF006C5A20 /* ContinuousKnobModel.swift in Sources */,
 				5A8FC8ED1D0D4442006C5A20 /* AppDelegate.swift in Sources */,
