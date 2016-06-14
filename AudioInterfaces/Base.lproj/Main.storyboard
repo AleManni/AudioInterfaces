@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -18,22 +19,25 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PQK-rP-Xcs" customClass="KnobView" customModule="AudioInterfaces" customModuleProvider="target">
-                                <rect key="frame" x="27" y="54" width="321" height="307"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PQK-rP-Xcs" customClass="ScaledKnob" customModule="AudioInterfaces" customModuleProvider="target">
+                                <rect key="frame" x="30" y="176" width="315" height="315"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="PQK-rP-Xcs" secondAttribute="height" multiplier="200:200" id="4Rj-Xd-TxQ"/>
+                                </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="isKnobStepped" value="NO"/>
                                     <userDefinedRuntimeAttribute type="number" keyPath="knobStrokeDimension">
-                                        <real key="value" value="60"/>
+                                        <real key="value" value="68"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="touchPositionInRange">
-                                        <real key="value" value="10"/>
+                                        <real key="value" value="0.0"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="outlineColor">
-                                        <color key="value" red="0.50196081400000003" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="value" red="1" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="counterColor">
-                                        <color key="value" red="1" green="1" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="value" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="minValue">
                                         <real key="value" value="0.0"/>
@@ -41,16 +45,29 @@
                                     <userDefinedRuntimeAttribute type="number" keyPath="maxValue">
                                         <real key="value" value="10"/>
                                     </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="touchValueInDegrees">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="PQK-rP-Xcs" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="11" id="414-Aw-6uH"/>
-                            <constraint firstItem="PQK-rP-Xcs" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="34" id="ayE-CN-fhe"/>
+                            <constraint firstItem="PQK-rP-Xcs" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="14" id="XJz-hP-hZ6"/>
+                            <constraint firstItem="PQK-rP-Xcs" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="aqA-ED-9K1"/>
+                            <constraint firstItem="PQK-rP-Xcs" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="gyo-Ex-QWA"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="PQK-rP-Xcs" secondAttribute="trailing" constant="14" id="k6t-me-Ymu"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="PQK-rP-Xcs" secondAttribute="bottom" constant="306" id="piM-Pv-Lgc"/>
                             <constraint firstAttribute="trailingMargin" secondItem="PQK-rP-Xcs" secondAttribute="trailing" constant="11" id="zTP-en-tNx"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="414-Aw-6uH"/>
+                                <exclude reference="zTP-en-tNx"/>
+                                <exclude reference="piM-Pv-Lgc"/>
+                            </mask>
+                        </variation>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                 </viewController>

@@ -4,7 +4,8 @@
 //
 //  Created by Alessandro Manni on 12/06/2016.
 //  Copyright © 2016 Alessandro Manni. All rights reserved.
-//
+// https://www.raywenderlich.com/90693/modern-core-graphics-with-swift-part-2
+
 
 import UIKit
 
