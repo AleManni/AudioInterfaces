@@ -9,65 +9,91 @@
 import UIKit
 
 class ScaledKnob: SimpleKnob {
-
+    
+    //Note: Primary marks multiplier sets the multiplier applied to the valuerange unit in order to draw the primary marks of the rotary scale. E.g. for a value scale of min Value 1.0 to maxValue 10.0 the result will be 10 marks being drawn when the mutiplier is = 1.0 (default value). For a value of 0.5 the marks will be 20, etc.. Similarly, the secondary marks mutipier defines the multiplier for the secondaty (shorter) markss, still applied to the valuerange.
+    
+    
+    @IBInspectable var primaryMarksMultiplier: Int = 1 {
+        didSet {
+            setNeedsLayout()
+        }
+    }
+    
+    @IBInspectable var secondaryMarksMultiplier: Int = 0 {
+        didSet {
+            setNeedsLayout()
+        }
+    }
+    
+    let primaryMarkerWidth:CGFloat = 5.0
+    let primaryMarkerSize:CGFloat = 10.0
+    let secondaryMarkerWidth: CGFloat = 2.5
+    let secondaryMarkerSize: CGFloat = 5.0
+    
+    var  arcLengthPerUnitValue: CGFloat {
+        get {
+            let angleDifference: CGFloat = 2 * π - startAngle.rawValue + endAngle.rawValue
+            return angleDifference / CGFloat(maxValue)
+        }
+    }
+    
     
     override func drawRect(rect: CGRect) {
         super.drawRect(rect)
+        
+        drawMarks(primaryMarkerWidth, markerSize: primaryMarkerSize, multiplier: primaryMarksMultiplier)
+        drawMarks(secondaryMarkerWidth, markerSize: secondaryMarkerSize, multiplier: secondaryMarksMultiplier)
+        
+    }
+    
+    func drawMarks(markerWidth: CGFloat, markerSize: CGFloat, multiplier: Int) {
+        
+        let arcLength = arcLengthPerUnitValue/CGFloat(multiplier)
+        
+        
         let context = UIGraphicsGetCurrentContext()
         
         
-        let angleDifference: CGFloat = 2 * π - knobStartAngle + knobEndAngle
-        let angleRangeDegr = RadiansToDegrees(Double (angleDifference))
         
-        //Calculate the arc for each single interval
-        
-        let arcLengthPerUnitValue = angleRangeDegr / maxValue
-
-        
-        
-        //1 - save original state
         CGContextSaveGState(context)
         outlineColor.setFill()
         
-        let markerWidth:CGFloat = 5.0
-        let markerSize:CGFloat = 10.0
         
-        //2 - the marker rectangle positioned at the top left
+        
         let markerPath = UIBezierPath(rect:
             CGRect(x: -markerWidth/2,
                 y: 0,
                 width: markerWidth,
                 height: markerSize))
         
-        //3 - move top left of context to the previous center position
-        CGContextTranslateCTM(context,
-                              rect.width/2,
-                              rect.height/2)
         
-        for i in 1...Int(self.maxValue) {
-            //4 - save the centred context
+        CGContextTranslateCTM(context,
+                              self.bounds.size.width/2,
+                              self.bounds.size.height/2)
+        
+        for i in 1...Int((self.maxValue + 1) * Double(multiplier)) {
+            
             CGContextSaveGState(context)
             
-            //5 - calculate the rotation angle
-            let angle = CGFloat(arcLengthPerUnitValue) * CGFloat(i) + startAngle.rawValue - π/2
+            let angle = arcLength * CGFloat(i) + knobStartAngle - π/2
             
-            //rotate and translate
+            
             CGContextRotateCTM(context, angle)
             CGContextTranslateCTM(context,
                                   0,
-                                  rect.height/2 - markerSize)
+                                  self.bounds.size.height/2 - markerSize)
             
-            //6 - fill the marker rectangle
+            
             markerPath.fill()
             
-            //7 - restore the centred context for the next rotate
             CGContextRestoreGState(context)
         }
         
-        //8 - restore the original state in case of more painting
+        
         CGContextRestoreGState(context)
-
     }
+    
+    
     
     
 }
