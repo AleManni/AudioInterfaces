@@ -36,8 +36,8 @@ enum patch {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        setUpPadController ()
         self.addSubview(PadController)
+        setUpPadController ()
         PadController.setUpView()
         setUpLabels([titleLabel1, valueLabel1, titleLabel2, valueLabel2])
         setUpButton()
@@ -52,6 +52,13 @@ enum patch {
         PadController.patchTo = patchTo
         PadController.frame = CGRectMake(10, 10, self.bounds.size.width - 20, self.bounds.size.height * 0.5)
         PadController.viewDelegate = self
+        PadController.translatesAutoresizingMaskIntoConstraints = false
+        let padTrail = NSLayoutConstraint(item: PadController, attribute: .Right, relatedBy: .Equal, toItem: self, attribute: .Right, multiplier: 1, constant: -10)
+        let padLead = NSLayoutConstraint(item: PadController, attribute: .Left, relatedBy: .Equal, toItem: self, attribute: .Left, multiplier: 1, constant: 10)
+        let padWidth = NSLayoutConstraint(item: PadController, attribute: .Width, relatedBy: .Equal, toItem: self, attribute: .Width, multiplier: 1, constant: -20)
+        let padHeight = NSLayoutConstraint(item: PadController, attribute: .Height, relatedBy: .Equal, toItem: self, attribute: .Height, multiplier: 0.5, constant: 0)
+        let padTop = NSLayoutConstraint(item: PadController, attribute: .Top, relatedBy: .Equal, toItem: self, attribute: .Top, multiplier: 1, constant: -10)
+        self.addConstraints([padTrail, padLead, padWidth, padHeight, padTop])
     }
     
     func setUpLabels (labels:[UILabel]) {

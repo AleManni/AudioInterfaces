@@ -59,7 +59,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9eS-zB-8JK" customClass="PadView" customModule="AudioInterfaces" customModuleProvider="target">
-                                <rect key="frame" x="16" y="28" width="351" height="223"/>
+                                <rect key="frame" x="16" y="52" width="351" height="207"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="gridColor">
@@ -121,16 +121,16 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="DEc-LQ-Em4" firstAttribute="leading" secondItem="PQK-rP-Xcs" secondAttribute="leading" id="3Q9-N9-KzW"/>
                             <constraint firstItem="PQK-rP-Xcs" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="11" id="414-Aw-6uH"/>
                             <constraint firstItem="DEc-LQ-Em4" firstAttribute="width" secondItem="DEc-LQ-Em4" secondAttribute="height" multiplier="200:200" id="Iko-RR-Xta"/>
-                            <constraint firstItem="PQK-rP-Xcs" firstAttribute="top" secondItem="9eS-zB-8JK" secondAttribute="bottom" constant="32" id="MVd-G6-b1R"/>
+                            <constraint firstItem="PQK-rP-Xcs" firstAttribute="top" secondItem="9eS-zB-8JK" secondAttribute="bottom" constant="24" id="MVd-G6-b1R"/>
                             <constraint firstItem="PQK-rP-Xcs" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="14" id="XJz-hP-hZ6"/>
                             <constraint firstItem="PQK-rP-Xcs" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="aqA-ED-9K1"/>
-                            <constraint firstItem="DEc-LQ-Em4" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="bai-ZB-MlS"/>
                             <constraint firstItem="PQK-rP-Xcs" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="24.5" id="gyo-Ex-QWA"/>
                             <constraint firstAttribute="trailingMargin" secondItem="PQK-rP-Xcs" secondAttribute="trailing" constant="14" id="k6t-me-Ymu"/>
                             <constraint firstItem="9eS-zB-8JK" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="kjZ-AD-aqi"/>
-                            <constraint firstItem="9eS-zB-8JK" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="l8v-eY-rfn"/>
+                            <constraint firstItem="9eS-zB-8JK" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="32" id="l8v-eY-rfn"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="PQK-rP-Xcs" secondAttribute="bottom" constant="306" id="piM-Pv-Lgc"/>
                             <constraint firstItem="9eS-zB-8JK" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" constant="8" id="qHC-Oi-vUe"/>
                             <constraint firstItem="DEc-LQ-Em4" firstAttribute="top" secondItem="PQK-rP-Xcs" secondAttribute="bottom" constant="21" id="vM6-ZZ-4z0"/>
