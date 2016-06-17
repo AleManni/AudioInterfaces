@@ -30,8 +30,14 @@ protocol SteppedKnobProtocol {
 
 protocol KnobDelegate {
     func handleRotationforKnob <T:KnobProtocol> (knob: T, sender: AnyObject)
+    func calculateOutputValue <T:KnobProtocol> (knob: T, sender: AnyObject) -> CGFloat
 }
 
 protocol SteppedKnobDelegate {
     func handleRotationforSteppedKnob <T:SteppedKnobProtocol> (steppedKnob: T, sender: AnyObject)
+    func calculateOutputValue <T:SteppedKnobProtocol> (steppedKnob: T, sender: AnyObject) -> CGFloat
+}
+
+protocol PadDelegate {
+    func didUpdateValues(value1: Int, value2: Int)
 }

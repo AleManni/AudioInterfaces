@@ -13,173 +13,171 @@ enum patch {
     case ParameterControl
 }
 
+//Note: action for Button needs to be defined programmatically below by the end user!
 
-
-@IBDesignable class PadView: UIView {
+@IBDesignable class PadView: UIView, PadDelegate {
     
-    var PadController = UIControl()
+    var PadController = Pad()
     @IBInspectable var gridColor: UIColor = UIColor.orangeColor()
     @IBInspectable var backColor: UIColor = UIColor.yellowColor()
     @IBInspectable var lineWidth:CGFloat = 2
     @IBInspectable var leadSpaceBetweenLines: Int = 20
     @IBInspectable var patchTo: patch = .TapTempo
+    @IBInspectable var displayLabels: Bool = true
+    @IBInspectable var displayButton: Bool = true
+    @IBInspectable var buttonTitle: String?
     
-    
-    var delegate: AnyObject?
-    var outputVaues: (value1: Int, value2: Int) = (0,0)
+    let titleLabel1 = UILabel()
+    let titleLabel2 = UILabel()
+    let valueLabel1 = UILabel()
+    let valueLabel2 = UILabel()
+    let button = UIButton()
     
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.PadController.addTarget(self, action: #selector(PadView.didTap), forControlEvents: .TouchUpInside)
-        self.PadController.addTarget(self, action: #selector(PadView.didDrag), forControlEvents: .TouchDragInside)
-        setUpPadController()
+        setUpPadController ()
+        self.addSubview(PadController)
+        PadController.setUpView()
+        setUpLabels([titleLabel1, valueLabel1, titleLabel2, valueLabel2])
+        setUpButton()
+    }
+    
+    
+    func setUpPadController () {
+        PadController.gridColor = gridColor
+        PadController.backColor = backColor
+        PadController.lineWidth = lineWidth
+        PadController.leadSpaceBetweenLines = leadSpaceBetweenLines
+        PadController.patchTo = patchTo
+        PadController.frame = CGRectMake(10, 10, self.bounds.size.width - 20, self.bounds.size.height * 0.5)
+        PadController.viewDelegate = self
+    }
+    
+    func setUpLabels (labels:[UILabel]) {
+        
+        guard displayLabels == true else {
+            for label in labels {
+                label.hidden = true
+            }
+            return
+        }
+        
+        self.addSubview(titleLabel1)
+        self.addSubview(valueLabel1)
+        self.addSubview(titleLabel2)
+        self.addSubview(valueLabel2)
+        
+        for label in labels {
+            
+            label.frame.size.width = PadController.frame.size.width/4
+            label.font = UIFont(name: "Zapf Dingbats", size: 12)
+            label.adjustsFontSizeToFitWidth = true
+            
+            if label == valueLabel1 || label == valueLabel2 {
+                label.backgroundColor = UIColor.blackColor()
+                label.textColor = UIColor.whiteColor()
+            } else {
+                label.backgroundColor = UIColor.clearColor()
+                label.textColor = UIColor.blackColor()
+            }
+            
+            label.textAlignment = .Center
+            label.translatesAutoresizingMaskIntoConstraints = false
+            let widthContraint = NSLayoutConstraint(item: label, attribute: .Width, relatedBy: .Equal, toItem: PadController, attribute: .Width, multiplier: 0.25, constant: 0)
+            self.addConstraints([widthContraint])
+            
+            makeRoundedCorners(label)
+            
+        }
+        
+        
+        let label1Top = NSLayoutConstraint(item: titleLabel1, attribute: .Top, relatedBy: .Equal, toItem: PadController, attribute: .Bottom, multiplier: 1, constant: 16)
+        let label1Trail = NSLayoutConstraint(item: titleLabel1, attribute: .Trailing, relatedBy: .Equal, toItem: valueLabel1, attribute: .Leading, multiplier: 1, constant: 0)
+        let value1Top = NSLayoutConstraint(item: valueLabel1, attribute: .Top, relatedBy: .Equal, toItem: PadController, attribute: .Bottom, multiplier: 1, constant: 16)
+        let value1Lead = NSLayoutConstraint(item: valueLabel1, attribute: .Leading, relatedBy: .Equal, toItem: titleLabel1, attribute: .Trailing, multiplier: 1, constant: 0)
+        let value1Trail = NSLayoutConstraint(item: valueLabel1, attribute: .Right, relatedBy: .Equal, toItem: self, attribute: .Right, multiplier: 1, constant: -10)
+        
+        let label2Top = NSLayoutConstraint(item: titleLabel2, attribute: .Top, relatedBy: .Equal, toItem: titleLabel1, attribute: .Bottom, multiplier: 1, constant: 8)
+        let label2Trail = NSLayoutConstraint(item: titleLabel2, attribute: .Trailing, relatedBy: .Equal, toItem: valueLabel2, attribute: .Leading, multiplier: 1, constant: 0)
+        let value2Top = NSLayoutConstraint(item: valueLabel2, attribute: .Top, relatedBy: .Equal, toItem: valueLabel1, attribute: .Bottom, multiplier: 1, constant: 8)
+        let value2Lead = NSLayoutConstraint(item: valueLabel2, attribute: .Leading, relatedBy: .Equal, toItem: titleLabel2, attribute: .Trailing, multiplier: 1, constant: 0)
+        let value2Trail = NSLayoutConstraint(item: valueLabel2, attribute: .Right, relatedBy: .Equal, toItem: self, attribute: .Right, multiplier: 1, constant: -10)
+        
+        self.addConstraints([label1Top, label1Trail, value1Top, value1Lead, value1Trail, label2Top, label2Trail, value2Top, value2Lead, value2Trail])
+        
         
         switch patchTo {
         case .TapTempo:
-            self.delegate = TapTempoCalculator()
+            titleLabel1.text = "Ms"
+            titleLabel2.text = "BPM"
+            valueLabel1.text = " "
+            valueLabel2.text = " "
+            
         case .ParameterControl:
             return // For future implementation
         }
         
-    }
-    
-    func setUpPadController () {
-        self.PadController.layer.cornerRadius = 3.0
-        self.PadController.layer.borderColor = gridColor.CGColor
-        self.PadController.layer.borderWidth = 2.0
-        self.PadController.clipsToBounds = true
-    }
-    
-    
-    func didDrag() {
-        //For future implmentation
-    }
-    
-    
-    func didTap() {
-        if let delegate = self.delegate as? TapTempoCalculator {
-            delegate.didTapTempo()
-            outputVaues.value1 = delegate.averageMs
-            outputVaues.value2 = delegate.BPM
-        }
-    }
-    
-    override func drawRect(rect: CGRect) {
-        super.drawRect(rect)
-        drawPadController()
-            }
-    
-    
-    func drawPadController() {
-        
-        let context = UIGraphicsGetCurrentContext()
-        
-        CGContextSetFillColorWithColor(context, backColor.CGColor)
-        
-        CGContextFillRect(context, PadController.bounds)
-        
-        let leadDimension = max(self.bounds.size.width, self.bounds.size.height)
-        let secondaryDimension = min(self.bounds.size.width, self.bounds.size.height)
-        
-        let secondarySpaceBetweenLines: CGFloat = (secondaryDimension / (leadDimension/CGFloat(leadSpaceBetweenLines)))
-        
-        var leadStart = CGPoint(x: 0.0, y: 0.0)
-        var endPoint = CGPoint(x: 0.0, y: 0.0)
         
         
-        if self.frame.size.width == leadDimension {
-            
-            for i in 0...(Int (leadDimension) / leadSpaceBetweenLines) {
-                
-                
-                leadStart = CGPoint(x: self.bounds.minX, y: self.bounds.maxY)
-                endPoint =  CGPoint (x: self.bounds.maxX, y: self.bounds.minY)
-                
-                
-                CGContextSetLineWidth(context, lineWidth)
-                //1
-                CGContextMoveToPoint(context, leadStart.x + CGFloat(leadSpaceBetweenLines * i),
-                                     leadStart.y)
-                CGContextAddLineToPoint(context, endPoint.x, endPoint.y + secondarySpaceBetweenLines * CGFloat(i))
-                
-                //2
-                CGContextMoveToPoint(context, leadStart.x + CGFloat(leadSpaceBetweenLines * i),
-                                     leadStart.y)
-                
-                CGContextAddLineToPoint(context, leadStart.x, leadStart.y - secondarySpaceBetweenLines * CGFloat(i))
-            }
-            
-            
-            for i in 0...(Int (leadDimension) / leadSpaceBetweenLines) {
-                
-                leadStart = CGPoint (x: self.bounds.maxX, y: self.bounds.minY)
-                endPoint = CGPoint (x: self.bounds.minX, y: self.bounds.maxY)
-                
-                
-                CGContextSetLineWidth(context, lineWidth)
-                
-                //3
-                CGContextMoveToPoint(context, leadStart.x - CGFloat(leadSpaceBetweenLines * i),
-                                     leadStart.y)
-                CGContextAddLineToPoint(context, endPoint.x, endPoint.y - secondarySpaceBetweenLines * CGFloat(i))
-                
-                //4
-                CGContextMoveToPoint(context, endPoint.x + CGFloat(leadSpaceBetweenLines * i),
-                                     leadStart.y)
-                CGContextAddLineToPoint(context, leadStart.x, endPoint.y - secondarySpaceBetweenLines * CGFloat(i))
-            }
-        }
-        
-        
-        if self.frame.size.height == leadDimension {
-            
-            for i in 0...(Int (leadDimension) / leadSpaceBetweenLines) {
-                
-                
-                leadStart = CGPoint(x: self.bounds.minX, y: self.bounds.minY)
-                endPoint =  CGPoint (x: self.bounds.maxX, y: self.bounds.maxY)
-                
-                
-                CGContextSetLineWidth(context, lineWidth)
-                //1
-                CGContextMoveToPoint(context, leadStart.x - CGFloat(leadSpaceBetweenLines * i),
-                                     leadStart.y)
-                CGContextAddLineToPoint(context, endPoint.x - secondarySpaceBetweenLines * CGFloat(i)
-                    , endPoint.y)
-                //2
-                CGContextMoveToPoint(context, endPoint.x, endPoint.y - CGFloat(leadSpaceBetweenLines * i))
-                
-                CGContextAddLineToPoint(context, leadStart.x + secondarySpaceBetweenLines * CGFloat(i)
-                    , leadStart.y)
-            }
-            
-            
-            for i in 0...(Int (leadDimension) / leadSpaceBetweenLines) {
-                
-                leadStart = CGPoint (x: self.bounds.minX, y: self.bounds.maxY)
-                endPoint = CGPoint (x: self.bounds.maxX, y: self.bounds.minY)
-                
-                
-                CGContextSetLineWidth(context, lineWidth)
-                
-                //3
-                CGContextMoveToPoint(context, leadStart.x, leadStart.y - CGFloat(leadSpaceBetweenLines * i))
-                CGContextAddLineToPoint(context, endPoint.x - secondarySpaceBetweenLines * CGFloat(i) , endPoint.y)
-                //4
-                CGContextMoveToPoint(context, endPoint.x, endPoint.y + CGFloat(leadSpaceBetweenLines * i))
-                CGContextAddLineToPoint(context, leadStart.x, leadStart.y + secondarySpaceBetweenLines * CGFloat(i))
-                
-            }
-        }
-        
-        CGContextSetStrokeColorWithColor(context, gridColor.CGColor)
-        CGContextSetLineWidth(context, lineWidth)
-        CGContextStrokePath(context)
-        
+        setNeedsLayout()
 
     }
     
+    func setUpButton() {
+        guard displayButton == true else {
+            button.hidden = true
+            return}
+        self.addSubview(button)
+        makeRoundedCorners(button)
+        button.backgroundColor = gridColor
+        if let title = buttonTitle {
+        button.setTitle(title, forState: .Normal)
+        }
+        
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        let widthContraint = NSLayoutConstraint(item: button, attribute: .Width, relatedBy: .Equal, toItem: PadController, attribute: .Width, multiplier: 0.5, constant: 0)
+        let buttonTop = NSLayoutConstraint(item: button, attribute: .Top, relatedBy: .Equal, toItem: PadController, attribute: .Bottom, multiplier: 1, constant: 16)
+        let buttonLead = NSLayoutConstraint(item: button, attribute: .Leading, relatedBy: .Equal, toItem: PadController, attribute: .Leading, multiplier: 1, constant: 0)
+        
+        
+        var conditionalContraint: NSLayoutConstraint
+        
+        if titleLabel2.hidden == false {
+        conditionalContraint = NSLayoutConstraint(item: button, attribute: .BottomMargin, relatedBy: .Equal, toItem: titleLabel2, attribute: .BottomMargin, multiplier: 1, constant: 0)
+        }
+        else {
+            conditionalContraint = NSLayoutConstraint(item: button, attribute: .Height, relatedBy: .Equal, toItem: button, attribute: .Height, multiplier: 1, constant: 32)
+        }
+        
+        //let buttonTrail = NSLayoutConstraint(item: button, attribute: .Trailing, relatedBy: .Equal, toItem: titleLabel1, attribute: .Leading, multiplier: 1, constant: 0)
+        self.addConstraints([widthContraint, buttonTop, buttonLead, conditionalContraint])
+        
+        button.layoutIfNeeded()
+        
+    }
+    
+    
+    func makeRoundedCorners(view: UIView) {
+        view.layer.cornerRadius = 3.0
+        view.clipsToBounds = true
+    }
+    
+    
+    override func drawRect(rect: CGRect) {
+        super.drawRect(rect)
+        
+        
+    }
+    
+    //MARK: PadDelegate 
+    
+    func didUpdateValues(value1: Int, value2: Int) {
+        
+        valueLabel1.text = "\(value1)"
+        valueLabel2.text = "\(value2)"
+    }
     
 }
 
