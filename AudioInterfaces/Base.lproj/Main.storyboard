@@ -19,31 +19,33 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PQK-rP-Xcs" customClass="ScaledKnob" customModule="AudioInterfaces" customModuleProvider="target">
-                                <rect key="frame" x="30" y="176" width="315" height="315"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DEc-LQ-Em4" userLabel="SimpleKnob" customClass="SimpleKnob" customModule="AudioInterfaces" customModuleProvider="target">
+                                <rect key="frame" x="112" y="454" width="150" height="150"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="PQK-rP-Xcs" secondAttribute="height" multiplier="200:200" id="4Rj-Xd-TxQ"/>
+                                    <constraint firstAttribute="width" secondItem="DEc-LQ-Em4" secondAttribute="height" multiplier="200:200" id="2jf-q9-2ft"/>
+                                    <constraint firstAttribute="height" constant="150" id="W3I-vh-aAx"/>
+                                    <constraint firstAttribute="width" constant="150" id="vai-aS-yX6"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="isKnobStepped" value="NO"/>
                                     <userDefinedRuntimeAttribute type="number" keyPath="knobStrokeDimension">
-                                        <real key="value" value="68"/>
+                                        <real key="value" value="30"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="touchPositionInRange">
                                         <real key="value" value="0.0"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="outlineColor">
-                                        <color key="value" red="1" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="value" red="0.40000000600000002" green="0.40000000600000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="counterColor">
-                                        <color key="value" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="value" red="1" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="minValue">
-                                        <real key="value" value="0.0"/>
+                                        <integer key="value" value="0"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="maxValue">
-                                        <real key="value" value="10"/>
+                                        <integer key="value" value="100"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="touchValueInDegrees">
                                         <real key="value" value="0.0"/>
@@ -52,7 +54,67 @@
                                         <integer key="value" value="1"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="secondaryMarksMultiplier">
-                                        <real key="value" value="4"/>
+                                        <integer key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9eS-zB-8JK" customClass="PadView" customModule="AudioInterfaces" customModuleProvider="target">
+                                <rect key="frame" x="16" y="28" width="351" height="223"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="gridColor">
+                                        <color key="value" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="backColor">
+                                        <color key="value" red="1" green="1" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="lineWidth">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="leadSpaceBetweenLines">
+                                        <integer key="value" value="8"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="displayLabels" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="displayButton" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="buttonTitle" value="Title"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PQK-rP-Xcs" customClass="ScaledKnob" customModule="AudioInterfaces" customModuleProvider="target">
+                                <rect key="frame" x="112" y="283" width="150" height="150"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="2rx-n3-vWP"/>
+                                    <constraint firstAttribute="width" secondItem="PQK-rP-Xcs" secondAttribute="height" multiplier="200:200" id="4Rj-Xd-TxQ"/>
+                                    <constraint firstAttribute="width" constant="150" id="63o-UK-tih"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isKnobStepped" value="NO"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="knobStrokeDimension">
+                                        <real key="value" value="34"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="touchPositionInRange">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="outlineColor">
+                                        <color key="value" red="1" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="counterColor">
+                                        <color key="value" red="0.0" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="minValue">
+                                        <integer key="value" value="0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="maxValue">
+                                        <integer key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="touchValueInDegrees">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="primaryMarksMultiplier">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="secondaryMarksMultiplier">
+                                        <integer key="value" value="2"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
@@ -60,17 +122,27 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="PQK-rP-Xcs" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="11" id="414-Aw-6uH"/>
+                            <constraint firstItem="DEc-LQ-Em4" firstAttribute="width" secondItem="DEc-LQ-Em4" secondAttribute="height" multiplier="200:200" id="Iko-RR-Xta"/>
+                            <constraint firstItem="PQK-rP-Xcs" firstAttribute="top" secondItem="9eS-zB-8JK" secondAttribute="bottom" constant="32" id="MVd-G6-b1R"/>
                             <constraint firstItem="PQK-rP-Xcs" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="14" id="XJz-hP-hZ6"/>
                             <constraint firstItem="PQK-rP-Xcs" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="aqA-ED-9K1"/>
-                            <constraint firstItem="PQK-rP-Xcs" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="gyo-Ex-QWA"/>
+                            <constraint firstItem="DEc-LQ-Em4" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="bai-ZB-MlS"/>
+                            <constraint firstItem="PQK-rP-Xcs" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="24.5" id="gyo-Ex-QWA"/>
                             <constraint firstAttribute="trailingMargin" secondItem="PQK-rP-Xcs" secondAttribute="trailing" constant="14" id="k6t-me-Ymu"/>
+                            <constraint firstItem="9eS-zB-8JK" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="kjZ-AD-aqi"/>
+                            <constraint firstItem="9eS-zB-8JK" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="l8v-eY-rfn"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="PQK-rP-Xcs" secondAttribute="bottom" constant="306" id="piM-Pv-Lgc"/>
+                            <constraint firstItem="9eS-zB-8JK" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" constant="8" id="qHC-Oi-vUe"/>
+                            <constraint firstItem="DEc-LQ-Em4" firstAttribute="top" secondItem="PQK-rP-Xcs" secondAttribute="bottom" constant="21" id="vM6-ZZ-4z0"/>
                             <constraint firstAttribute="trailingMargin" secondItem="PQK-rP-Xcs" secondAttribute="trailing" constant="11" id="zTP-en-tNx"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="414-Aw-6uH"/>
+                                <exclude reference="XJz-hP-hZ6"/>
+                                <exclude reference="k6t-me-Ymu"/>
                                 <exclude reference="zTP-en-tNx"/>
+                                <exclude reference="Iko-RR-Xta"/>
                                 <exclude reference="piM-Pv-Lgc"/>
                             </mask>
                         </variation>

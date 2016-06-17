@@ -8,13 +8,15 @@
 
 import UIKit
 
-class SteppedKnobModel {
+class SteppedKnobCalculator {
     
         var managedKnob: SteppedKnobProtocol?
         
         private var deltaOldValue: Double = 0.0
-        
-        
+    
+        var delta: Double = 0.0
+    
+    
         
         
  func handleRotationforSteppedKnob <T:SteppedKnobProtocol> (steppedKnob: T, sender: AnyObject) {
@@ -34,6 +36,7 @@ class SteppedKnobModel {
         
         //Update the knob
         managedKnob!.touchValueInDegrees = steppedDelta
+        delta = steppedDelta
         
     }
     
@@ -61,7 +64,7 @@ class SteppedKnobModel {
             var delta = (selectedAngleDegr - startAngleDegr)
             
             if selectedAngleDegr < startAngleDegr {
-                delta = selectedAngleDegr + (360 - startAngleDegr)
+             delta = selectedAngleDegr + (360 - startAngleDegr)
             }
             
             //Apply top and bottom scale for delta. When SelectedAngleDegree is out of scale, delta will retain either the max or min value depending on the value of the the previous touch - rendering the area between the start and end of pot "insensitive"
@@ -93,9 +96,20 @@ class SteppedKnobModel {
     
         let stepDegrees = angleRangeDegr / Double((valueRange) * numberOfSteps)
         let partial = round(delta/stepDegrees)
-        return partial * stepDegrees
-        }
         
+        delta = partial * stepDegrees
+        deltaOldValue = delta
+        return delta
+        
+        }
+    
+    
+    func calculateOutputValue <T:SteppedKnobProtocol> (steppedKnob: T, sender: AnyObject) -> CGFloat {
+        let angleRangeDegr = RadiansToDegrees(Double (steppedKnob.knobEndAngle - steppedKnob.knobStartAngle))
+        print (CGFloat (delta/angleRangeDegr) * CGFloat (steppedKnob.maxValue))
+        return CGFloat (delta/angleRangeDegr) * CGFloat (steppedKnob.maxValue)
+    }
+    
     
         //MARK: Utilities
     

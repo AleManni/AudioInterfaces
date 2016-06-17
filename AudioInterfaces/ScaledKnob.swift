@@ -8,9 +8,9 @@
 
 import UIKit
 
-class ScaledKnob: SimpleKnob {
+class ScaledKnob: SimpleKnob, SteppedKnobProtocol {
     
-    //Note: Primary marks multiplier sets the multiplier applied to the valuerange unit in order to draw the primary marks of the rotary scale. E.g. for a value scale of min Value 1.0 to maxValue 10.0 the result will be 10 marks being drawn when the mutiplier is = 1.0 (default value). For a value of 0.5 the marks will be 20, etc.. Similarly, the secondary marks mutipier defines the multiplier for the secondaty (shorter) markss, still applied to the valuerange.
+    //Note: Primary marks multiplier sets the multiplier applied to the valuerange unit in order to draw the primary marks of the rotary scale. E.g. for a value scale of min Value 1.0 to maxValue 10.0 the result will be 10 marks being drawn when the mutiplier is = 1.0 (default value). For a value of 2 the marks will be 20, etc.. Similarly, the secondary marks mutipier defines the multiplier for the secondaty (shorter) markss, still applied to the valuerange.
     
     
     @IBInspectable var primaryMarksMultiplier: Int = 1 {
@@ -32,11 +32,26 @@ class ScaledKnob: SimpleKnob {
     
     var  arcLengthPerUnitValue: CGFloat {
         get {
-            let angleDifference: CGFloat = 2 * π - startAngle.rawValue + endAngle.rawValue
-            return angleDifference / CGFloat(maxValue)
+            let angleDifference: CGFloat = 2 * π - knobStartAngle + knobEndAngle
+            return angleDifference / CGFloat(maxValue-minValue)
         }
     }
     
+    
+    
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        rotationGestureRecognizer = RotationGestureRecognizer(target: self, action: #selector(SimpleKnob.didReceiveTouch(_:)))
+        self.addGestureRecognizer(rotationGestureRecognizer!)
+        let calculator = SteppedKnobCalculator()
+        self.delegate = calculator
+        valueLabelSetUp()
+        self.addSubview(valueLabel)
+    }
+
+    
+    //MARK: Draw functions
     
     override func drawRect(rect: CGRect) {
         super.drawRect(rect)
@@ -48,16 +63,11 @@ class ScaledKnob: SimpleKnob {
     
     func drawMarks(markerWidth: CGFloat, markerSize: CGFloat, multiplier: Int) {
         
-        let arcLength = arcLengthPerUnitValue/CGFloat(multiplier)
-        
-        
         let context = UIGraphicsGetCurrentContext()
         
-        
-        
         CGContextSaveGState(context)
-        outlineColor.setFill()
         
+        outlineColor.setFill()
         
         
         let markerPath = UIBezierPath(rect:
@@ -71,29 +81,51 @@ class ScaledKnob: SimpleKnob {
                               self.bounds.size.width/2,
                               self.bounds.size.height/2)
         
-        for i in 1...Int((self.maxValue + 1) * Double(multiplier)) {
+        let valueRange = self.maxValue - self.minValue
+        
+        for i in 1...Int(valueRange * multiplier) {
             
             CGContextSaveGState(context)
             
-            let angle = arcLength * CGFloat(i) + knobStartAngle - π/2
+            let arcLenghtPerSubUnit = arcLengthPerUnitValue/CGFloat(multiplier)
             
+            let angle = (arcLenghtPerSubUnit * CGFloat(i)) + knobStartAngle - π/2
+        
             
             CGContextRotateCTM(context, angle)
             CGContextTranslateCTM(context,
                                   0,
                                   self.bounds.size.height/2 - markerSize)
             
-            
             markerPath.fill()
             
             CGContextRestoreGState(context)
         }
         
-        
         CGContextRestoreGState(context)
     }
     
     
+    //MARK: Actions
+    
+    override func didReceiveTouch (sender: AnyObject) {
+        
+        if let knobDelegate = delegate as? SteppedKnobCalculator {
+            knobDelegate.handleRotationforSteppedKnob(self, sender: rotationGestureRecognizer!)
+            let outputValue = knobDelegate.calculateOutputValue(self, sender: self)
+            valueLabel.text = NSString(format:"%.1f", outputValue) as String
+            valueLabel.layoutIfNeeded()
+            setNeedsDisplay()
+        }
+    }
+    
+    override func updateValueLabel () {
+        if let knobDelegate = delegate as? SteppedKnobCalculator {
+            let outputValue = knobDelegate.calculateOutputValue(self, sender: self)
+            valueLabel.text = NSString(format:"%.1f", outputValue) as String
+            valueLabel.layoutIfNeeded()
+        }
+    }
     
     
 }

@@ -22,17 +22,17 @@ enum angleSections: CGFloat {
     let π = Constants.sharedValues.π
     let padding = Constants.sharedValues.padding
     
-    var delegate:KnobDelegate?
+    var delegate:AnyObject?
     
     let valueLabel = UILabel()
     
     @IBInspectable var outlineColor: UIColor = UIColor.blueColor()
     @IBInspectable var counterColor: UIColor = UIColor.orangeColor()
     @IBInspectable var knobStrokeDimension: CGFloat = Constants.sharedValues.knobDimension
-    @IBInspectable var minValue: Double = 0.0
-    @IBInspectable var maxValue: Double = 10.0
+    @IBInspectable var minValue: Int = 0
+    @IBInspectable var maxValue: Int = 10
     
-    var valueRange: Double {
+    var valueRange: Int {
         get {
             return maxValue - minValue
         }
@@ -55,6 +55,8 @@ enum angleSections: CGFloat {
     }
     
     
+    
+    
     @IBInspectable var touchValueInDegrees: Double = 0.0
     
     var rotationGestureRecognizer: RotationGestureRecognizer?
@@ -64,8 +66,8 @@ enum angleSections: CGFloat {
         super.awakeFromNib()
         rotationGestureRecognizer = RotationGestureRecognizer(target: self, action: #selector(SimpleKnob.didReceiveTouch(_:)))
         self.addGestureRecognizer(rotationGestureRecognizer!)
-        let model = ContinuousKnobModel()
-        self.delegate = model
+        let calculator = ContinuousKnobCalculator()
+        self.delegate = calculator
         valueLabelSetUp()
         self.addSubview(valueLabel)
     }
@@ -98,9 +100,9 @@ enum angleSections: CGFloat {
         
         let center = CGPoint(x:bounds.width/2, y: bounds.height/2)
         
-        let radius: CGFloat = max(bounds.width, bounds.height)/2 - padding //Radius = max width of the view / 2
+        let radius: CGFloat = max(bounds.width, bounds.height)/2 - padding // Radius = max width of the view / 2
         
-        let arcWidth: CGFloat = knobStrokeDimension // This is the tickness of the stroke. See point 6
+        let arcWidth: CGFloat = knobStrokeDimension // This is the tickness of the stroke.
         
         let path = UIBezierPath(arcCenter: center,
                                 radius: radius - arcWidth/2,
@@ -122,7 +124,7 @@ enum angleSections: CGFloat {
         
     }
     
-    private func drawTheOutLine (range: Double, touchPositionInRange: Double) {
+    private func drawTheOutLine (range: Int, touchPositionInRange: Double) {
         
         let arcWidth: CGFloat = knobStrokeDimension
         let center = CGPoint(x:bounds.width/2, y: bounds.height/2)
@@ -159,25 +161,29 @@ enum angleSections: CGFloat {
         outlinePath.stroke()
     }
     
-    //MARK: Action functions
+    //MARK: Actions
+    
+    
     
     
     func updateValueLabel () {
-
-    let angleRangeDegr = RadiansToDegrees(Double (knobEndAngle - knobStartAngle))
-    let angleToValue = CGFloat (touchValueInDegrees/angleRangeDegr) * CGFloat (maxValue)
-     valueLabel.text = NSString(format:"%.1f", angleToValue) as String
-    valueLabel.layoutIfNeeded()
+        if let knobDelegate = delegate as? ContinuousKnobCalculator {
+        let outputValue = knobDelegate.calculateOutputValue(self, sender: self)
+        valueLabel.text = NSString(format:"%.1f", outputValue) as String
+        valueLabel.layoutIfNeeded()
+        }
     }
     
     func didReceiveTouch (sender: AnyObject) {
         
-        if let knobDelegate = delegate {
+        if let knobDelegate = delegate as? ContinuousKnobCalculator {
             knobDelegate.handleRotationforKnob(self, sender: rotationGestureRecognizer!)
+            updateValueLabel()
             setNeedsDisplay()
         }
     }
     
+    //MARK: Utilities
     
     func RadiansToDegrees (value:Double) -> Double {
         var result = value * (180.0 / M_PI)
