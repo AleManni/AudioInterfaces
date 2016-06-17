@@ -4,7 +4,10 @@
 //
 //  Created by Alessandro Manni on 12/06/2016.
 //  Copyright © 2016 Alessandro Manni. All rights reserved.
+// This builds on the top of the following tutorial, introducing several relevant features
 // https://www.raywenderlich.com/90693/modern-core-graphics-with-swift-part-2
+// The new architecture provided offers support for reusability and future extension
+
 
 
 import UIKit

@@ -9,13 +9,13 @@
 import UIKit
 
 
-class ContinuousKnobModel: UIView, KnobDelegate {
+class ContinuousKnobCalculator: KnobDelegate {
     
     var managedKnob: KnobProtocol?
     
     private var deltaOldValue: Double = 0.0
     
-    
+    var delta: Double = 0.0
     
     
     func handleRotationforKnob<T:KnobProtocol>(knob: T, sender: AnyObject) {
@@ -56,7 +56,7 @@ class ContinuousKnobModel: UIView, KnobDelegate {
         let angleRange = knob.knobEndAngle - knob.knobStartAngle
         let angleRangeDegr = RadiansToDegrees(Double (angleRange))
         
-        var delta = (selectedAngleDegr - startAngleDegr)
+         delta = (selectedAngleDegr - startAngleDegr)
         
         if selectedAngleDegr < startAngleDegr {
             delta = selectedAngleDegr + (360 - startAngleDegr)
@@ -77,6 +77,11 @@ class ContinuousKnobModel: UIView, KnobDelegate {
         deltaOldValue = delta
         return delta
         
+    }
+    
+    func calculateOutputValue <T:KnobProtocol> (knob: T, sender: AnyObject) -> CGFloat {
+        let angleRangeDegr = RadiansToDegrees(Double (knob.knobEndAngle - knob.knobStartAngle))
+        return CGFloat (delta/angleRangeDegr) * CGFloat (knob.maxValue)
     }
     
     
