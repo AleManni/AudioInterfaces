@@ -30,7 +30,7 @@
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="isKnobStepped" value="NO"/>
                                     <userDefinedRuntimeAttribute type="number" keyPath="knobStrokeDimension">
-                                        <real key="value" value="30"/>
+                                        <real key="value" value="34"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="touchPositionInRange">
                                         <real key="value" value="0.0"/>
@@ -90,7 +90,7 @@
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="isKnobStepped" value="NO"/>
                                     <userDefinedRuntimeAttribute type="number" keyPath="knobStrokeDimension">
-                                        <real key="value" value="34"/>
+                                        <real key="value" value="30"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="touchPositionInRange">
                                         <real key="value" value="0.0"/>
@@ -99,7 +99,7 @@
                                         <color key="value" red="1" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="counterColor">
-                                        <color key="value" red="0.0" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="value" red="0.25098040700000002" green="0.0" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="minValue">
                                         <integer key="value" value="0"/>
