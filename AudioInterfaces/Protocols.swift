@@ -23,8 +23,8 @@ protocol SteppedKnobProtocol {
     var touchValueInDegrees: Double {set get}
     var minValue: Int {set get}
     var maxValue: Int {set get}
-    var primaryMarksMultiplier: Int {set get}
-    var secondaryMarksMultiplier: Int {set get}
+    var primaryMarksMultiplier: UInt {set get}
+    var secondaryMarksMultiplier: UInt {set get}
 }
 
 

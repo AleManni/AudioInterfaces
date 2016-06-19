@@ -53,7 +53,7 @@ class SteppedKnobCalculator {
         }
     
         
-    func calculateDelta(selectedAngleDegr:Double, valueRange: Int, multipliers: (primary:Int, secondary:Int)) -> Double {
+    func calculateDelta(selectedAngleDegr:Double, valueRange: Int, multipliers: (primary:UInt, secondary:UInt)) -> Double {
             
             guard let knob = managedKnob else { return 0.0 }
             let startAngleDegr = RadiansToDegrees(Double (knob.knobStartAngle))
@@ -83,7 +83,7 @@ class SteppedKnobCalculator {
         
         // Step the delta on the basis of the minimum interval (step) defined for the knob scale
         
-        var numberOfSteps = 0
+        var numberOfSteps: UInt = 0
         
         if multipliers.secondary > 0 {
             numberOfSteps = multipliers.secondary
@@ -94,7 +94,7 @@ class SteppedKnobCalculator {
             numberOfSteps = multipliers.primary
         }
     
-        let stepDegrees = angleRangeDegr / Double((valueRange) * numberOfSteps)
+        let stepDegrees = angleRangeDegr / Double(valueRange * Int(numberOfSteps))
         let partial = round(delta/stepDegrees)
         
         delta = partial * stepDegrees

@@ -13,18 +13,8 @@ class ScaledKnob: SimpleKnob, SteppedKnobProtocol {
     //Note: Primary marks multiplier sets the multiplier applied to the valuerange unit in order to draw the primary marks of the rotary scale. E.g. for a value scale of min Value 1.0 to maxValue 10.0 the result will be 10 marks being drawn when the mutiplier is = 1.0 (default value). For a value of 2 the marks will be 20, etc.. Similarly, the secondary marks mutipier defines the multiplier for the secondaty (shorter) markss, still applied to the valuerange.
     
     
-    @IBInspectable var primaryMarksMultiplier: Int = 1 {
-        didSet {
-            setNeedsLayout()
-        }
-    }
-    
-    @IBInspectable var secondaryMarksMultiplier: Int = 0 {
-        didSet {
-            setNeedsLayout()
-        }
-    }
-    
+    @IBInspectable var primaryMarksMultiplier: UInt = 1
+    @IBInspectable var secondaryMarksMultiplier: UInt = 0
     let primaryMarkerWidth:CGFloat = 5.0
     let primaryMarkerSize:CGFloat = 10.0
     let secondaryMarkerWidth: CGFloat = 2.5
@@ -36,7 +26,6 @@ class ScaledKnob: SimpleKnob, SteppedKnobProtocol {
             return angleDifference / CGFloat(maxValue-minValue)
         }
     }
-    
     
     
 
@@ -56,12 +45,14 @@ class ScaledKnob: SimpleKnob, SteppedKnobProtocol {
     override func drawRect(rect: CGRect) {
         super.drawRect(rect)
         
+        
+        
         drawMarks(primaryMarkerWidth, markerSize: primaryMarkerSize, multiplier: primaryMarksMultiplier)
         drawMarks(secondaryMarkerWidth, markerSize: secondaryMarkerSize, multiplier: secondaryMarksMultiplier)
         
     }
     
-    func drawMarks(markerWidth: CGFloat, markerSize: CGFloat, multiplier: Int) {
+    func drawMarks(markerWidth: CGFloat, markerSize: CGFloat, multiplier: UInt) {
         
         let context = UIGraphicsGetCurrentContext()
         
@@ -83,7 +74,9 @@ class ScaledKnob: SimpleKnob, SteppedKnobProtocol {
         
         let valueRange = self.maxValue - self.minValue
         
-        for i in 1...Int(valueRange * multiplier) {
+        if multiplier >= 1 {
+        
+        for i in 1...valueRange * Int(multiplier) {
             
             CGContextSaveGState(context)
             
@@ -100,6 +93,7 @@ class ScaledKnob: SimpleKnob, SteppedKnobProtocol {
             markerPath.fill()
             
             CGContextRestoreGState(context)
+        }
         }
         
         CGContextRestoreGState(context)
