@@ -22,10 +22,12 @@ enum patch {
     @IBInspectable var backColor: UIColor = UIColor.yellowColor()
     @IBInspectable var lineWidth:CGFloat = 2
     @IBInspectable var leadSpaceBetweenLines: Int = 20
-    @IBInspectable var patchTo: patch = .TapTempo
+    @IBInspectable var patchTo: patch = .ParameterControl
     @IBInspectable var displayLabels: Bool = true
     @IBInspectable var displayButton: Bool = true
     @IBInspectable var buttonTitle: String?
+    @IBInspectable var maximumValuePar1: Double = 0.0
+    @IBInspectable var maximumValuePar2: Double = 0.0
     
     let titleLabel1 = UILabel()
     let titleLabel2 = UILabel()
@@ -41,6 +43,7 @@ enum patch {
         PadController.setUpView()
         setUpLabels([titleLabel1, valueLabel1, titleLabel2, valueLabel2])
         setUpButton()
+        setUpSwitch()
     }
     
     
@@ -50,6 +53,9 @@ enum patch {
         PadController.lineWidth = lineWidth
         PadController.leadSpaceBetweenLines = leadSpaceBetweenLines
         PadController.patchTo = patchTo
+        PadController.maximumValuePar1 = maximumValuePar1
+        PadController.maximumValuePar2 = maximumValuePar2
+        
         PadController.frame = CGRectMake(10, 10, self.bounds.size.width - 20, self.bounds.size.height * 0.5)
         PadController.viewDelegate = self
         PadController.translatesAutoresizingMaskIntoConstraints = false
@@ -122,13 +128,16 @@ enum patch {
             valueLabel2.text = " "
             
         case .ParameterControl:
-            return // For future implementation
+            titleLabel1.text = "Param1"
+            titleLabel2.text = "Param2"
+            valueLabel1.text = " "
+            valueLabel2.text = " "
         }
         
         
         
         setNeedsLayout()
-
+        
     }
     
     func setUpButton() {
@@ -139,30 +148,33 @@ enum patch {
         makeRoundedCorners(button)
         button.backgroundColor = gridColor
         if let title = buttonTitle {
-        button.setTitle(title, forState: .Normal)
+            button.setTitle(title, forState: .Normal)
         }
         
         button.translatesAutoresizingMaskIntoConstraints = false
         
-        let widthContraint = NSLayoutConstraint(item: button, attribute: .Width, relatedBy: .Equal, toItem: PadController, attribute: .Width, multiplier: 0.5, constant: 0)
+        let widthConstraint = NSLayoutConstraint(item: button, attribute: .Width, relatedBy: .Equal, toItem: PadController, attribute: .Width, multiplier: 0.25, constant: 0)
         let buttonTop = NSLayoutConstraint(item: button, attribute: .Top, relatedBy: .Equal, toItem: PadController, attribute: .Bottom, multiplier: 1, constant: 16)
         let buttonLead = NSLayoutConstraint(item: button, attribute: .Leading, relatedBy: .Equal, toItem: PadController, attribute: .Leading, multiplier: 1, constant: 0)
         
         
-        var conditionalContraint: NSLayoutConstraint
+        var conditionalConstraint: NSLayoutConstraint
         
         if titleLabel2.hidden == false {
-        conditionalContraint = NSLayoutConstraint(item: button, attribute: .BottomMargin, relatedBy: .Equal, toItem: titleLabel2, attribute: .BottomMargin, multiplier: 1, constant: 0)
+            conditionalConstraint = NSLayoutConstraint(item: button, attribute: .BottomMargin, relatedBy: .Equal, toItem: titleLabel2, attribute: .BottomMargin, multiplier: 1, constant: 0)
         }
         else {
-            conditionalContraint = NSLayoutConstraint(item: button, attribute: .Height, relatedBy: .Equal, toItem: button, attribute: .Height, multiplier: 1, constant: 32)
+            conditionalConstraint = NSLayoutConstraint(item: button, attribute: .Height, relatedBy: .Equal, toItem: button, attribute: .Height, multiplier: 1, constant: 32)
         }
         
         //let buttonTrail = NSLayoutConstraint(item: button, attribute: .Trailing, relatedBy: .Equal, toItem: titleLabel1, attribute: .Leading, multiplier: 1, constant: 0)
-        self.addConstraints([widthContraint, buttonTop, buttonLead, conditionalContraint])
+        self.addConstraints([widthConstraint, buttonTop, buttonLead, conditionalConstraint])
         
         button.layoutIfNeeded()
         
+    }
+    
+    func setUpSwitch() {
     }
     
     
@@ -178,12 +190,19 @@ enum patch {
         
     }
     
-    //MARK: PadDelegate 
+    //MARK: PadDelegate
     
-    func didUpdateValues(value1: Int, value2: Int) {
-        
-        valueLabel1.text = "\(value1)"
-        valueLabel2.text = "\(value2)"
+    func didUpdateValues(value1: Double, value2: Double) {
+        if PadController.patchTo == .TapTempo {
+            valueLabel1.text = "\(Int(value1))"
+            valueLabel2.text = "\(Int(value2))"
+        }
+        if PadController.patchTo == .ParameterControl {
+            let string1 = String(format:"%.1f", value1)
+            let string2 = String(format:"%.1f", value2)
+            valueLabel1.text = "\(string1)"
+            valueLabel2.text = "\(string2)"
+        }
     }
     
 }

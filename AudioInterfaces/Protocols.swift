@@ -27,6 +27,12 @@ protocol SteppedKnobProtocol {
     var secondaryMarksMultiplier: UInt {set get}
 }
 
+protocol PadProtocol {
+    var maximumValuePar1: Double {get}
+    var maximumValuePar2: Double {get}
+    var frame: CGRect {set get}
+}
+
 
 protocol KnobDelegate {
     func handleRotationforKnob <T:KnobProtocol> (knob: T, sender: AnyObject)
@@ -39,5 +45,5 @@ protocol SteppedKnobDelegate {
 }
 
 protocol PadDelegate {
-    func didUpdateValues(value1: Int, value2: Int)
+    func didUpdateValues(value1: Double, value2: Double)
 }

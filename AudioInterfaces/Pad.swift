@@ -9,19 +9,20 @@
 import UIKit
 
 
-@IBDesignable class Pad: UIControl {
+@IBDesignable class Pad: UIControl, UIGestureRecognizerDelegate, PadProtocol {
     
     @IBInspectable var gridColor: UIColor = UIColor.orangeColor()
     @IBInspectable var backColor: UIColor = UIColor.yellowColor()
     @IBInspectable var lineWidth:CGFloat = 2
     @IBInspectable var leadSpaceBetweenLines: Int = 20
-    @IBInspectable var patchTo: patch = .TapTempo
+    @IBInspectable var patchTo: patch = .ParameterControl
+    @IBInspectable var maximumValuePar1: Double = 0.0
+    @IBInspectable var maximumValuePar2: Double = 0.0
     
-    
+    var panGesture: UIPanGestureRecognizer?
     var delegate: AnyObject?
     var viewDelegate: PadDelegate?
-    var outputValues: (value1: Int, value2: Int) = (0,0)     
-    
+    var outputValues: (value1: Double, value2: Double) = (0,0)
     
     
     override func awakeFromNib() {
@@ -30,32 +31,60 @@ import UIKit
     }
     
     func setUpView () {
-        self.addTarget(self, action: #selector(Pad.didTap), forControlEvents: .TouchUpInside)
-        self.addTarget(self, action: #selector(Pad.didDrag), forControlEvents: .TouchDragInside)
+        
         switch patchTo {
+            
         case .TapTempo:
+            self.gestureRecognizers = []
+            let tapGesture = UITapGestureRecognizer()
+            self.addGestureRecognizer(tapGesture)
+            tapGesture.delegate = self
             self.delegate = TapTempoCalculator()
+            
         case .ParameterControl:
-            return // For future implementation
+            self.gestureRecognizers = []
+            panGesture = UIPanGestureRecognizer(target: self, action: #selector (Pad.handlePan))
+            self.addGestureRecognizer(panGesture!)
+            panGesture!.delegate = self
+            let calculator = TwoParametersCalculator()
+            self.delegate = calculator
+            calculator.padObj = self
+            
         }
-
+        
         setNeedsLayout()
     }
     
     
-    func didDrag() {
-        //For future implementation
+    
+    func handlePan() {
+        guard let pan = panGesture else {return}
+        switch pan.state {
+        case .Began, .Changed:
+            let position: CGPoint = pan.locationInView(self)
+            //            if position.x > self.frame.maxX || position.x < self.frame.minX || position.y > self.frame.maxY || position.y < self.frame.minY {
+            //                return
+            //            }
+            guard let del = delegate as! TwoParametersCalculator? else {return}
+            let outValues: (value1: Double, value2:Double) = del.valuesForNewPosition(position)
+            outputValues.value1 = outValues.value1
+            outputValues.value2 = outValues.value2
+            self.viewDelegate?.didUpdateValues(outputValues.value1, value2: outputValues.value2)
+        default:
+            break
+        }
     }
     
     
     func didTap() {
         if let delegate = self.delegate as? TapTempoCalculator {
             delegate.didTapTempo()
-            outputValues.value1 = delegate.averageMs
-            outputValues.value2 = delegate.BPM
+            outputValues.value1 = Double(delegate.averageMs)
+            outputValues.value2 = Double(delegate.BPM)
             self.viewDelegate?.didUpdateValues(outputValues.value1, value2: outputValues.value2)
         }
     }
+    
     
     override func drawRect(rect: CGRect) {
         
