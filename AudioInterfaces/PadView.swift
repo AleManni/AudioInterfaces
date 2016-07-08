@@ -21,8 +21,8 @@ enum patch {
     @IBInspectable var gridColor: UIColor = UIColor.orangeColor()
     @IBInspectable var backColor: UIColor = UIColor.yellowColor()
     @IBInspectable var lineWidth:CGFloat = 2
-    @IBInspectable var leadSpaceBetweenLines: Int = 20
-    @IBInspectable var patchTo: patch = .ParameterControl
+    @IBInspectable var leadSpaceBetweenLines: CGFloat = 20
+    @IBInspectable var patchTo: patch = .TapTempo
     @IBInspectable var displayLabels: Bool = true
     @IBInspectable var displayButton: Bool = true
     @IBInspectable var buttonTitle: String?
