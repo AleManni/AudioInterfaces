@@ -14,12 +14,13 @@ import UIKit
     @IBInspectable var gridColor: UIColor = UIColor.orangeColor()
     @IBInspectable var backColor: UIColor = UIColor.yellowColor()
     @IBInspectable var lineWidth:CGFloat = 2
-    @IBInspectable var leadSpaceBetweenLines: Int = 20
+    @IBInspectable var leadSpaceBetweenLines: CGFloat = 20
     @IBInspectable var patchTo: patch = .ParameterControl
     @IBInspectable var maximumValuePar1: Double = 0.0
     @IBInspectable var maximumValuePar2: Double = 0.0
     
     var panGesture: UIPanGestureRecognizer?
+    var tapGesture: UITapGestureRecognizer?
     var delegate: AnyObject?
     var viewDelegate: PadDelegate?
     var outputValues: (value1: Double, value2: Double) = (0,0)
@@ -27,7 +28,6 @@ import UIKit
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
     }
     
     func setUpView () {
@@ -36,9 +36,9 @@ import UIKit
             
         case .TapTempo:
             self.gestureRecognizers = []
-            let tapGesture = UITapGestureRecognizer()
-            self.addGestureRecognizer(tapGesture)
-            tapGesture.delegate = self
+            tapGesture = UITapGestureRecognizer(target: self, action: #selector(Pad.didTap))
+            self.addGestureRecognizer(tapGesture!)
+            tapGesture!.delegate = self
             self.delegate = TapTempoCalculator()
             
         case .ParameterControl:
@@ -87,8 +87,16 @@ import UIKit
     
     
     override func drawRect(rect: CGRect) {
-        
         super.drawRect(rect)
+        switch patchTo {
+        case .TapTempo:
+            drawForTap(rect)
+        case .ParameterControl:
+            drawForParametersControl (rect)
+        }
+    }
+    
+    func drawForTap (rect: CGRect) {
         
         let context = UIGraphicsGetCurrentContext()
         
@@ -107,7 +115,7 @@ import UIKit
         
         if self.frame.size.width == leadDimension {
             
-            for i in 0...(Int (leadDimension) / leadSpaceBetweenLines) {
+            for i in 0...(Int (leadDimension) / Int (leadSpaceBetweenLines)) {
                 
                 
                 leadStart = CGPoint(x: self.bounds.minX, y: self.bounds.maxY)
@@ -116,19 +124,19 @@ import UIKit
                 
                 CGContextSetLineWidth(context, lineWidth)
                 //1
-                CGContextMoveToPoint(context, leadStart.x + CGFloat(leadSpaceBetweenLines * i),
+                CGContextMoveToPoint(context, leadStart.x + (leadSpaceBetweenLines * CGFloat(i)),
                                      leadStart.y)
                 CGContextAddLineToPoint(context, endPoint.x, endPoint.y + secondarySpaceBetweenLines * CGFloat(i))
                 
                 //2
-                CGContextMoveToPoint(context, leadStart.x + CGFloat(leadSpaceBetweenLines * i),
+                CGContextMoveToPoint(context, leadStart.x + (leadSpaceBetweenLines * CGFloat (i)),
                                      leadStart.y)
                 
                 CGContextAddLineToPoint(context, leadStart.x, leadStart.y - secondarySpaceBetweenLines * CGFloat(i))
             }
             
             
-            for i in 0...(Int (leadDimension) / leadSpaceBetweenLines) {
+            for i in 0...(Int (leadDimension) / Int (leadSpaceBetweenLines)) {
                 
                 leadStart = CGPoint (x: self.bounds.maxX, y: self.bounds.minY)
                 endPoint = CGPoint (x: self.bounds.minX, y: self.bounds.maxY)
@@ -137,12 +145,12 @@ import UIKit
                 CGContextSetLineWidth(context, lineWidth)
                 
                 //3
-                CGContextMoveToPoint(context, leadStart.x - CGFloat(leadSpaceBetweenLines * i),
+                CGContextMoveToPoint(context, leadStart.x - (leadSpaceBetweenLines * CGFloat(i)),
                                      leadStart.y)
                 CGContextAddLineToPoint(context, endPoint.x, endPoint.y - secondarySpaceBetweenLines * CGFloat(i))
                 
                 //4
-                CGContextMoveToPoint(context, endPoint.x + CGFloat(leadSpaceBetweenLines * i),
+                CGContextMoveToPoint(context, endPoint.x + CGFloat(leadSpaceBetweenLines * CGFloat(i)),
                                      leadStart.y)
                 CGContextAddLineToPoint(context, leadStart.x, endPoint.y - secondarySpaceBetweenLines * CGFloat(i))
             }
@@ -151,7 +159,7 @@ import UIKit
         
         if self.frame.size.height == leadDimension {
             
-            for i in 0...(Int (leadDimension) / leadSpaceBetweenLines) {
+            for i in 0...(Int (leadDimension) / Int (leadSpaceBetweenLines)) {
                 
                 
                 leadStart = CGPoint(x: self.bounds.minX, y: self.bounds.minY)
@@ -160,19 +168,19 @@ import UIKit
                 
                 CGContextSetLineWidth(context, lineWidth)
                 //1
-                CGContextMoveToPoint(context, leadStart.x - CGFloat(leadSpaceBetweenLines * i),
+                CGContextMoveToPoint(context, leadStart.x - CGFloat(leadSpaceBetweenLines * CGFloat(i)),
                                      leadStart.y)
                 CGContextAddLineToPoint(context, endPoint.x - secondarySpaceBetweenLines * CGFloat(i)
                     , endPoint.y)
                 //2
-                CGContextMoveToPoint(context, endPoint.x, endPoint.y - CGFloat(leadSpaceBetweenLines * i))
+                CGContextMoveToPoint(context, endPoint.x, endPoint.y - CGFloat(leadSpaceBetweenLines * CGFloat(i)))
                 
                 CGContextAddLineToPoint(context, leadStart.x + secondarySpaceBetweenLines * CGFloat(i)
                     , leadStart.y)
             }
             
             
-            for i in 0...(Int (leadDimension) / leadSpaceBetweenLines) {
+            for i in 0...(Int (leadDimension) / Int (leadSpaceBetweenLines)) {
                 
                 leadStart = CGPoint (x: self.bounds.minX, y: self.bounds.maxY)
                 endPoint = CGPoint (x: self.bounds.maxX, y: self.bounds.minY)
@@ -181,10 +189,10 @@ import UIKit
                 CGContextSetLineWidth(context, lineWidth)
                 
                 //3
-                CGContextMoveToPoint(context, leadStart.x, leadStart.y - CGFloat(leadSpaceBetweenLines * i))
+                CGContextMoveToPoint(context, leadStart.x, leadStart.y - CGFloat(leadSpaceBetweenLines * CGFloat(i)))
                 CGContextAddLineToPoint(context, endPoint.x - secondarySpaceBetweenLines * CGFloat(i) , endPoint.y)
                 //4
-                CGContextMoveToPoint(context, endPoint.x, endPoint.y + CGFloat(leadSpaceBetweenLines * i))
+                CGContextMoveToPoint(context, endPoint.x, endPoint.y + CGFloat(leadSpaceBetweenLines * CGFloat(i)))
                 CGContextAddLineToPoint(context, leadStart.x, leadStart.y + secondarySpaceBetweenLines * CGFloat(i))
                 
             }
@@ -201,11 +209,68 @@ import UIKit
         
     }
     
-    
-    
-    
+    func drawForParametersControl (rect: CGRect) {
+        
+        let context = UIGraphicsGetCurrentContext()
+        CGContextSetFillColorWithColor(context, backColor.CGColor)
+        CGContextFillRect(context, rect)
+        
+        let leadDimension = max(self.bounds.size.width, self.bounds.size.height)
+        let secondaryDimension = min(self.bounds.size.width, self.bounds.size.height)
+        
+        leadSpaceBetweenLines = leadDimension/CGFloat(maximumValuePar1)
+        let secondarySpaceBetweenLines: CGFloat = (secondaryDimension/CGFloat(maximumValuePar2))
+        
+        var leadStart = CGPoint(x: 0.0, y: 0.0)
+        var endPoint = CGPoint(x: 0.0, y: 0.0)
+        
+        
+        
+            
+            for i in 0...(Int (maximumValuePar1)) {
+        
+                leadStart = CGPoint(x: self.bounds.minX, y: self.bounds.maxY)
+                endPoint =  CGPoint (x: self.bounds.minX, y: self.bounds.minY)
+                
+                
+                CGContextSetLineWidth(context, lineWidth)
+                //1
+                CGContextMoveToPoint(context, leadStart.x + leadSpaceBetweenLines * CGFloat(i),leadStart.y)
+                CGContextAddLineToPoint(context, endPoint.x + leadSpaceBetweenLines * CGFloat(i), endPoint.y)
+                
+            }
+            
+            
+            for i in 0...(Int (maximumValuePar2)) {
+                
+                leadStart = CGPoint (x: self.bounds.minX, y: self.bounds.minY)
+                endPoint = CGPoint (x: self.bounds.maxX, y: self.bounds.minY)
+                
+                
+                CGContextSetLineWidth(context, lineWidth)
+                
+                //3
+                CGContextMoveToPoint(context, leadStart.x,
+                                     leadStart.y + (secondarySpaceBetweenLines * CGFloat(i)))
+                CGContextAddLineToPoint(context, endPoint.x,
+                                        endPoint.y + (secondarySpaceBetweenLines * CGFloat(i)))
+                }
+        
+        
+               
+        CGContextSetStrokeColorWithColor(context, gridColor.CGColor)
+        CGContextSetLineWidth(context, lineWidth)
+        CGContextStrokePath(context)
+        
+        self.layer.cornerRadius = 3.0
+        self.layer.borderColor = gridColor.CGColor
+        self.layer.borderWidth = 2.0
+        self.clipsToBounds = true
+
+        
+        
 }
 
-
+}
 
 
