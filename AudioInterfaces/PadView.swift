@@ -84,18 +84,20 @@ enum patch {
         for label in labels {
             
             label.frame.size.width = PadController.frame.size.width/4
-            label.font = UIFont(name: "Zapf Dingbats", size: 12)
-            label.adjustsFontSizeToFitWidth = true
+            label.font = UIFont(name: "Zapf Dingbats", size: 9)
+            label.sizeToFit()
             
             if label == valueLabel1 || label == valueLabel2 {
                 label.backgroundColor = UIColor.blackColor()
                 label.textColor = UIColor.whiteColor()
+                label.textAlignment = .Center
             } else {
                 label.backgroundColor = UIColor.clearColor()
                 label.textColor = UIColor.blackColor()
+                label.textAlignment = .Right
             }
             
-            label.textAlignment = .Center
+            
             label.translatesAutoresizingMaskIntoConstraints = false
             let widthContraint = NSLayoutConstraint(item: label, attribute: .Width, relatedBy: .Equal, toItem: PadController, attribute: .Width, multiplier: 0.25, constant: 0)
             self.addConstraints([widthContraint])
@@ -106,18 +108,20 @@ enum patch {
         
         
         let label1Top = NSLayoutConstraint(item: titleLabel1, attribute: .Top, relatedBy: .Equal, toItem: PadController, attribute: .Bottom, multiplier: 1, constant: 16)
-        let label1Trail = NSLayoutConstraint(item: titleLabel1, attribute: .Trailing, relatedBy: .Equal, toItem: valueLabel1, attribute: .Leading, multiplier: 1, constant: 0)
+        let label1Trail = NSLayoutConstraint(item: titleLabel1, attribute: .Trailing, relatedBy: .Equal, toItem: valueLabel1, attribute: .Leading, multiplier: 1, constant: -4)
+        let label1Btm = NSLayoutConstraint(item: titleLabel1, attribute: .Bottom, relatedBy: .Equal, toItem: valueLabel1, attribute: .Bottom, multiplier: 1, constant: 0)
         let value1Top = NSLayoutConstraint(item: valueLabel1, attribute: .Top, relatedBy: .Equal, toItem: PadController, attribute: .Bottom, multiplier: 1, constant: 16)
         let value1Lead = NSLayoutConstraint(item: valueLabel1, attribute: .Leading, relatedBy: .Equal, toItem: titleLabel1, attribute: .Trailing, multiplier: 1, constant: 0)
         let value1Trail = NSLayoutConstraint(item: valueLabel1, attribute: .Right, relatedBy: .Equal, toItem: self, attribute: .Right, multiplier: 1, constant: -10)
         
         let label2Top = NSLayoutConstraint(item: titleLabel2, attribute: .Top, relatedBy: .Equal, toItem: titleLabel1, attribute: .Bottom, multiplier: 1, constant: 8)
-        let label2Trail = NSLayoutConstraint(item: titleLabel2, attribute: .Trailing, relatedBy: .Equal, toItem: valueLabel2, attribute: .Leading, multiplier: 1, constant: 0)
+        let label2Trail = NSLayoutConstraint(item: titleLabel2, attribute: .Trailing, relatedBy: .Equal, toItem: valueLabel2, attribute: .Leading, multiplier: 1, constant: -4)
+        let label2Btm = NSLayoutConstraint(item: titleLabel2, attribute: .Bottom, relatedBy: .Equal, toItem: valueLabel2, attribute: .Bottom, multiplier: 1, constant: 0)
         let value2Top = NSLayoutConstraint(item: valueLabel2, attribute: .Top, relatedBy: .Equal, toItem: valueLabel1, attribute: .Bottom, multiplier: 1, constant: 8)
         let value2Lead = NSLayoutConstraint(item: valueLabel2, attribute: .Leading, relatedBy: .Equal, toItem: titleLabel2, attribute: .Trailing, multiplier: 1, constant: 0)
         let value2Trail = NSLayoutConstraint(item: valueLabel2, attribute: .Right, relatedBy: .Equal, toItem: self, attribute: .Right, multiplier: 1, constant: -10)
         
-        self.addConstraints([label1Top, label1Trail, value1Top, value1Lead, value1Trail, label2Top, label2Trail, value2Top, value2Lead, value2Trail])
+        self.addConstraints([label1Top, label1Trail, label1Btm, value1Top, value1Lead, value1Trail, label2Top, label2Trail, label2Btm, value2Top, value2Lead, value2Trail])
         
         
         switch patchTo {
@@ -128,17 +132,17 @@ enum patch {
             valueLabel2.text = " "
             
         case .ParameterControl:
-            titleLabel1.text = "Param1"
-            titleLabel2.text = "Param2"
+            titleLabel1.text = "PARAM1"
+            titleLabel2.text = "PARAM2"
             valueLabel1.text = " "
             valueLabel2.text = " "
         }
         
-        
-        
         setNeedsLayout()
         
     }
+    
+    
     
     func setUpButton() {
         guard displayButton == true else {
@@ -160,12 +164,12 @@ enum patch {
         
         var conditionalConstraint: NSLayoutConstraint
         
-        if titleLabel2.hidden == false {
-            conditionalConstraint = NSLayoutConstraint(item: button, attribute: .BottomMargin, relatedBy: .Equal, toItem: titleLabel2, attribute: .BottomMargin, multiplier: 1, constant: 0)
-        }
-        else {
+//        if titleLabel2.hidden == false {
+//            conditionalConstraint = NSLayoutConstraint(item: button, attribute: .BottomMargin, relatedBy: .Equal, toItem: titleLabel2, attribute: .BottomMargin, multiplier: 1, constant: 0)
+//        }
+//        else {
             conditionalConstraint = NSLayoutConstraint(item: button, attribute: .Height, relatedBy: .Equal, toItem: button, attribute: .Height, multiplier: 1, constant: 32)
-        }
+//        }
         
         
         self.addConstraints([widthConstraint, buttonTop, buttonLead, conditionalConstraint])
@@ -173,6 +177,8 @@ enum patch {
         button.layoutIfNeeded()
         
     }
+    
+    
     
     func setUpSwitch() {
     }
@@ -188,7 +194,6 @@ enum patch {
     
     override func drawRect(rect: CGRect) {
         super.drawRect(rect)
-        
         
     }
     

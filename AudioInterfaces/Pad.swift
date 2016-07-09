@@ -275,7 +275,6 @@ import UIKit
                                         endPoint.y + (secondarySpaceBetweenLines * CGFloat(i)))
                 }
         
-        
                
         CGContextSetStrokeColorWithColor(context, gridColor.CGColor)
         CGContextSetLineWidth(context, lineWidth)
@@ -285,8 +284,6 @@ import UIKit
         self.layer.borderColor = gridColor.CGColor
         self.layer.borderWidth = 2.0
         self.clipsToBounds = true
-
-        
         
 }
 

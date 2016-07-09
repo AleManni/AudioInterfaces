@@ -25,10 +25,6 @@ import QuartzCore
                                     endAngle:CGFloat(M_PI * 2),
                                     clockwise: true)
         
-//            let circleLayer = CAShapeLayer()
-//        circleLayer.path = circlePath.CGPath
-//        circleLayer.fillColor = color.CGColor
-        
         color.setFill()
         circlePath.fill()
         
