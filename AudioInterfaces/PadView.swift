@@ -22,7 +22,7 @@ enum patch {
     @IBInspectable var backColor: UIColor = UIColor.yellowColor()
     @IBInspectable var lineWidth:CGFloat = 2
     @IBInspectable var leadSpaceBetweenLines: CGFloat = 20
-    @IBInspectable var patchTo: patch = .TapTempo
+    @IBInspectable var patchTo: patch = .ParameterControl
     @IBInspectable var displayLabels: Bool = true
     @IBInspectable var displayButton: Bool = true
     @IBInspectable var buttonTitle: String?
@@ -167,7 +167,7 @@ enum patch {
             conditionalConstraint = NSLayoutConstraint(item: button, attribute: .Height, relatedBy: .Equal, toItem: button, attribute: .Height, multiplier: 1, constant: 32)
         }
         
-        //let buttonTrail = NSLayoutConstraint(item: button, attribute: .Trailing, relatedBy: .Equal, toItem: titleLabel1, attribute: .Leading, multiplier: 1, constant: 0)
+        
         self.addConstraints([widthConstraint, buttonTop, buttonLead, conditionalConstraint])
         
         button.layoutIfNeeded()
@@ -177,6 +177,8 @@ enum patch {
     func setUpSwitch() {
     }
     
+    
+    //MARK - Utilities
     
     func makeRoundedCorners(view: UIView) {
         view.layer.cornerRadius = 3.0
@@ -192,7 +194,7 @@ enum patch {
     
     //MARK: PadDelegate
     
-    func didUpdateValues(value1: Double, value2: Double) {
+    func didUpdateValues(value1: CGFloat, value2: CGFloat) {
         if PadController.patchTo == .TapTempo {
             valueLabel1.text = "\(Int(value1))"
             valueLabel2.text = "\(Int(value2))"

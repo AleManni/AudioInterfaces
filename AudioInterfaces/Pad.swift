@@ -2,7 +2,7 @@
 //  Pad.swift
 //  AudioInterfaces
 //
-//  Created by Alessandro Manni - Nodes Agency on 15/06/2016.
+//  Created by Alessandro Manni
 //  Copyright © 2016 Alessandro Manni. All rights reserved.
 //
 
@@ -21,10 +21,12 @@ import UIKit
     
     var panGesture: UIPanGestureRecognizer?
     var tapGesture: UITapGestureRecognizer?
+    var touchPosition: CGPoint?
     var delegate: AnyObject?
     var viewDelegate: PadDelegate?
-    var outputValues: (value1: Double, value2: Double) = (0,0)
+    var outputValues: (value1: CGFloat, value2: CGFloat) = (0,0)
     
+    let pointer = PointerCircle()
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -49,7 +51,12 @@ import UIKit
             let calculator = TwoParametersCalculator()
             self.delegate = calculator
             calculator.padObj = self
-            
+            self.addSubview(pointer)
+            pointer.frame = CGRectMake(0, 0, 12, 12)
+            pointer.opaque = false
+            pointer.color = gridColor
+            pointer.center = CGPoint(x: (self.bounds.minX + pointer.frame.size.width), y: (self.bounds.maxY-pointer.frame.size.height))
+            print(pointer.frame)
         }
         
         setNeedsLayout()
@@ -61,26 +68,38 @@ import UIKit
         guard let pan = panGesture else {return}
         switch pan.state {
         case .Began, .Changed:
-            let position: CGPoint = pan.locationInView(self)
-            //            if position.x > self.frame.maxX || position.x < self.frame.minX || position.y > self.frame.maxY || position.y < self.frame.minY {
-            //                return
-            //            }
+            touchPosition = pan.locationInView(self)
             guard let del = delegate as! TwoParametersCalculator? else {return}
-            let outValues: (value1: Double, value2:Double) = del.valuesForNewPosition(position)
+            let outValues: (value1: CGFloat, value2:CGFloat) = del.valuesForNewPosition(touchPosition!)
             outputValues.value1 = outValues.value1
             outputValues.value2 = outValues.value2
             self.viewDelegate?.didUpdateValues(outputValues.value1, value2: outputValues.value2)
+            repositionPointer((outputValues.value1, outputValues.value2))
         default:
             break
         }
+    }
+    
+    func repositionPointer(values: (value1: CGFloat, value2: CGFloat)?) {
+        guard let touch = touchPosition else {
+            if values != nil {
+                guard let delegate = self.delegate as? TwoParametersCalculator else {return}
+            let centre = delegate.pointerPositionForValues(values!)
+                pointer.center = centre
+                pointer.setNeedsLayout()
+            }
+            return
+        }
+        pointer.center = touch
+        pointer.setNeedsLayout()
     }
     
     
     func didTap() {
         if let delegate = self.delegate as? TapTempoCalculator {
             delegate.didTapTempo()
-            outputValues.value1 = Double(delegate.averageMs)
-            outputValues.value2 = Double(delegate.BPM)
+            outputValues.value1 = CGFloat(delegate.averageMs)
+            outputValues.value2 = CGFloat(delegate.BPM)
             self.viewDelegate?.didUpdateValues(outputValues.value1, value2: outputValues.value2)
         }
     }

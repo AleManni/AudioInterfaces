@@ -45,5 +45,5 @@ protocol SteppedKnobDelegate {
 }
 
 protocol PadDelegate {
-    func didUpdateValues(value1: Double, value2: Double)
+    func didUpdateValues(value1: CGFloat, value2: CGFloat)
 }
