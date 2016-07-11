@@ -15,18 +15,18 @@ import QuartzCore
     
     override func drawRect(rect: CGRect) {
         
-            let center = CGPoint(x:5, y: 5)
-            
-            let radius: CGFloat = 5.0
+        let center = CGPoint(x:5, y: 5)
         
-            let circlePath = UIBezierPath(arcCenter: center,
-                                    radius: radius,
-                                    startAngle: CGFloat(0),
-                                    endAngle:CGFloat(M_PI * 2),
-                                    clockwise: true)
+        let radius: CGFloat = 5.0
+        
+        let circlePath = UIBezierPath(arcCenter: center,
+                                      radius: radius,
+                                      startAngle: CGFloat(0),
+                                      endAngle:CGFloat(M_PI * 2),
+                                      clockwise: true)
         
         color.setFill()
         circlePath.fill()
         
-        }
+    }
 }

@@ -29,17 +29,15 @@ enum patch {
     @IBInspectable var maximumValuePar1: Double = 0.0
     @IBInspectable var maximumValuePar2: Double = 0.0
     
-    let titleLabel1 = UILabel()
-    let titleLabel2 = UILabel()
-    let valueLabel1 = UILabel()
-    let valueLabel2 = UILabel()
-    let button = UIButton()
+    private let titleLabel1 = UILabel()
+    private let titleLabel2 = UILabel()
+    private let valueLabel1 = UILabel()
+    private let valueLabel2 = UILabel()
+    private let button = UIButton()
     
     var patchTo: patch = .ParameterControl {
         didSet {
-            //PadController.patchType = patchTo
             setUpPadController ()
-            //PadController.setUpView()
             setUpLabels([titleLabel1, valueLabel1, titleLabel2, valueLabel2])
             layoutIfNeeded()
         }
@@ -56,7 +54,7 @@ enum patch {
     }
     
     
-    func setUpPadController () {
+    private func setUpPadController () {
         PadController.patchType = patchTo
         PadController.gridColor = gridColor
         PadController.backColor = backColor
@@ -78,7 +76,7 @@ enum patch {
         layoutIfNeeded()
     }
     
-    func setUpLabels (labels:[UILabel]) {
+    private func setUpLabels (labels:[UILabel]) {
         
         guard displayLabels == true else {
             for label in labels {
@@ -160,7 +158,7 @@ enum patch {
     
     
     
-    func setUpButton() {
+    private func setUpButton() {
         guard displayButton == true else {
             button.hidden = true
             return}
@@ -177,26 +175,17 @@ enum patch {
         let buttonTop = NSLayoutConstraint(item: button, attribute: .Top, relatedBy: .Equal, toItem: PadController, attribute: .Bottom, multiplier: 1, constant: 16)
         let buttonLead = NSLayoutConstraint(item: button, attribute: .Leading, relatedBy: .Equal, toItem: PadController, attribute: .Leading, multiplier: 1, constant: 0)
         
+        let  heightConstraint = NSLayoutConstraint(item: button, attribute: .Height, relatedBy: .Equal, toItem: button, attribute: .Height, multiplier: 1, constant: 32)
         
-        var conditionalConstraint: NSLayoutConstraint
+        self.addConstraints([widthConstraint, buttonTop, buttonLead, heightConstraint])
         
-//        if titleLabel2.hidden == false {
-//            conditionalConstraint = NSLayoutConstraint(item: button, attribute: .BottomMargin, relatedBy: .Equal, toItem: titleLabel2, attribute: .BottomMargin, multiplier: 1, constant: 0)
-//        }
-//        else {
-            conditionalConstraint = NSLayoutConstraint(item: button, attribute: .Height, relatedBy: .Equal, toItem: button, attribute: .Height, multiplier: 1, constant: 32)
-//        }
-        
-        
-        self.addConstraints([widthConstraint, buttonTop, buttonLead, conditionalConstraint])
-        
-        button.layoutIfNeeded()
+        layoutIfNeeded()
         
     }
     
     
     
-    func setUpSwitch() {
+    private func setUpSwitch() {
         let switchView = NSBundle.mainBundle().loadNibNamed("SwitchView", owner: self, options: nil)[0] as! SwitchView
         self.addSubview(switchView)
         switchView.switchDelegate = self
@@ -218,16 +207,11 @@ enum patch {
     
     //MARK - Utilities
     
-    func makeRoundedCorners(view: UIView) {
+    private func makeRoundedCorners(view: UIView) {
         view.layer.cornerRadius = 3.0
         view.clipsToBounds = true
     }
     
-    
-    override func drawRect(rect: CGRect) {
-        super.drawRect(rect)
-        
-    }
     
     //MARK: PadDelegate
     

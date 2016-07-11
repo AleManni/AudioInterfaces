@@ -37,7 +37,7 @@ class TwoParametersCalculator {
         if Double (outputValue2) < 0.0 {
             outputValue2 = 0.0
         }
-        //print (outputValue1, outputValue2)
+        
         return (outputValue1, outputValue2)
     }
 
