@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="1Vf-qw-Iog" customClass="SwitchView" customModule="AudioInterfaces" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="411" height="105"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PAR" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XVF-9M-b6Q" userLabel="Parameters">
+                    <rect key="frame" x="0.0" y="0.0" width="206" height="105"/>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <fontDescription key="fontDescription" name="ZapfDingbatsITC" family="Zapf Dingbats" pointSize="13"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TAP" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s2Z-U1-Ch4" userLabel="Tap">
+                    <rect key="frame" x="205" y="0.0" width="206" height="105"/>
+                    <color key="backgroundColor" red="0.7019608021" green="0.7019608021" blue="0.7019608021" alpha="1" colorSpace="calibratedRGB"/>
+                    <fontDescription key="fontDescription" name="ZapfDingbatsITC" family="Zapf Dingbats" pointSize="13"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mki-fw-HPy" userLabel="Overlay">
+                    <rect key="frame" x="0.0" y="0.0" width="206" height="105"/>
+                    <color key="backgroundColor" red="0.80000000000000004" green="0.22352941179999999" blue="0.21176470589999999" alpha="0.65469277871621623" colorSpace="calibratedRGB"/>
+                    <gestureRecognizers/>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <gestureRecognizers/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="s2Z-U1-Ch4" secondAttribute="bottom" id="28F-5W-Fvs"/>
+                <constraint firstItem="XVF-9M-b6Q" firstAttribute="top" secondItem="1Vf-qw-Iog" secondAttribute="top" id="92e-D0-bcR"/>
+                <constraint firstItem="mki-fw-HPy" firstAttribute="leading" secondItem="1Vf-qw-Iog" secondAttribute="leading" id="CXJ-cZ-Qs4"/>
+                <constraint firstItem="mki-fw-HPy" firstAttribute="height" secondItem="XVF-9M-b6Q" secondAttribute="height" id="ED6-YK-20K"/>
+                <constraint firstItem="s2Z-U1-Ch4" firstAttribute="height" secondItem="XVF-9M-b6Q" secondAttribute="height" id="GL7-hP-Yit"/>
+                <constraint firstItem="s2Z-U1-Ch4" firstAttribute="top" secondItem="1Vf-qw-Iog" secondAttribute="top" id="HRE-0a-2Jc"/>
+                <constraint firstItem="XVF-9M-b6Q" firstAttribute="leading" secondItem="1Vf-qw-Iog" secondAttribute="leading" id="IoC-kB-iRB"/>
+                <constraint firstItem="XVF-9M-b6Q" firstAttribute="height" secondItem="1Vf-qw-Iog" secondAttribute="height" id="Lx9-fv-VpI"/>
+                <constraint firstItem="s2Z-U1-Ch4" firstAttribute="width" secondItem="XVF-9M-b6Q" secondAttribute="width" id="XEd-Dy-7cQ"/>
+                <constraint firstItem="mki-fw-HPy" firstAttribute="top" secondItem="1Vf-qw-Iog" secondAttribute="top" id="Yg7-o8-QQO"/>
+                <constraint firstItem="mki-fw-HPy" firstAttribute="width" secondItem="XVF-9M-b6Q" secondAttribute="width" id="cKX-Lb-x7D"/>
+                <constraint firstItem="mki-fw-HPy" firstAttribute="leading" secondItem="XVF-9M-b6Q" secondAttribute="leading" id="eWN-El-gBK"/>
+                <constraint firstAttribute="trailing" secondItem="s2Z-U1-Ch4" secondAttribute="trailing" id="uhZ-1x-72T"/>
+                <constraint firstAttribute="bottom" secondItem="XVF-9M-b6Q" secondAttribute="bottom" id="x2v-7f-cyI"/>
+                <constraint firstItem="XVF-9M-b6Q" firstAttribute="width" secondItem="1Vf-qw-Iog" secondAttribute="width" multiplier="0.5" id="xyu-V1-svK"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="CXJ-cZ-Qs4"/>
+                </mask>
+            </variation>
+            <connections>
+                <outlet property="overLayView" destination="mki-fw-HPy" id="kix-UK-UOX"/>
+                <outlet property="overlayLead" destination="eWN-El-gBK" id="PX0-Nk-dNW"/>
+                <outlet property="parametersLabel" destination="XVF-9M-b6Q" id="OJT-w8-zj8"/>
+                <outlet property="tapLabel" destination="s2Z-U1-Ch4" id="utz-Jh-Fvw"/>
+            </connections>
+            <point key="canvasLocation" x="313.5" y="39.5"/>
+        </view>
+    </objects>
+</document>

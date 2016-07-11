@@ -15,14 +15,14 @@ enum patch {
 
 //Note: action for Button needs to be defined programmatically below by the end user!
 
-@IBDesignable class PadView: UIView, PadDelegate {
+@IBDesignable class PadView: UIView, PadDelegate, switchViewDelegate {
     
     var PadController = Pad()
     @IBInspectable var gridColor: UIColor = UIColor.orangeColor()
     @IBInspectable var backColor: UIColor = UIColor.yellowColor()
     @IBInspectable var lineWidth:CGFloat = 2
     @IBInspectable var leadSpaceBetweenLines: CGFloat = 20
-    @IBInspectable var patchTo: patch = .ParameterControl
+    
     @IBInspectable var displayLabels: Bool = true
     @IBInspectable var displayButton: Bool = true
     @IBInspectable var buttonTitle: String?
@@ -35,6 +35,15 @@ enum patch {
     let valueLabel2 = UILabel()
     let button = UIButton()
     
+    var patchTo: patch = .ParameterControl {
+        didSet {
+            //PadController.patchType = patchTo
+            setUpPadController ()
+            //PadController.setUpView()
+            setUpLabels([titleLabel1, valueLabel1, titleLabel2, valueLabel2])
+            layoutIfNeeded()
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -48,11 +57,11 @@ enum patch {
     
     
     func setUpPadController () {
+        PadController.patchType = patchTo
         PadController.gridColor = gridColor
         PadController.backColor = backColor
         PadController.lineWidth = lineWidth
         PadController.leadSpaceBetweenLines = leadSpaceBetweenLines
-        PadController.patchTo = patchTo
         PadController.maximumValuePar1 = maximumValuePar1
         PadController.maximumValuePar2 = maximumValuePar2
         
@@ -65,6 +74,8 @@ enum patch {
         let padHeight = NSLayoutConstraint(item: PadController, attribute: .Height, relatedBy: .Equal, toItem: self, attribute: .Height, multiplier: 0.5, constant: 0)
         let padTop = NSLayoutConstraint(item: PadController, attribute: .Top, relatedBy: .Equal, toItem: self, attribute: .Top, multiplier: 1, constant: -10)
         self.addConstraints([padTrail, padLead, padWidth, padHeight, padTop])
+        
+        layoutIfNeeded()
     }
     
     func setUpLabels (labels:[UILabel]) {
@@ -83,15 +94,17 @@ enum patch {
         
         for label in labels {
             
-            label.frame.size.width = PadController.frame.size.width/4
+            
             label.font = UIFont(name: "Zapf Dingbats", size: 9)
             label.sizeToFit()
             
             if label == valueLabel1 || label == valueLabel2 {
+                label.frame.size.width = PadController.frame.size.width/4
                 label.backgroundColor = UIColor.blackColor()
                 label.textColor = UIColor.whiteColor()
                 label.textAlignment = .Center
             } else {
+                label.frame.size.width = PadController.frame.size.width/8
                 label.backgroundColor = UIColor.clearColor()
                 label.textColor = UIColor.blackColor()
                 label.textAlignment = .Right
@@ -103,25 +116,28 @@ enum patch {
             self.addConstraints([widthContraint])
             
             makeRoundedCorners(label)
-            
         }
         
         
-        let label1Top = NSLayoutConstraint(item: titleLabel1, attribute: .Top, relatedBy: .Equal, toItem: PadController, attribute: .Bottom, multiplier: 1, constant: 16)
+        let label1Allign = NSLayoutConstraint(item: titleLabel1, attribute: .CenterY, relatedBy: .Equal, toItem: valueLabel1, attribute: .CenterY, multiplier: 1, constant: 0)
         let label1Trail = NSLayoutConstraint(item: titleLabel1, attribute: .Trailing, relatedBy: .Equal, toItem: valueLabel1, attribute: .Leading, multiplier: 1, constant: -4)
         let label1Btm = NSLayoutConstraint(item: titleLabel1, attribute: .Bottom, relatedBy: .Equal, toItem: valueLabel1, attribute: .Bottom, multiplier: 1, constant: 0)
+        
+        let value1height = NSLayoutConstraint(item: valueLabel1, attribute: .Height, relatedBy: .Equal, toItem: button, attribute: .Height, multiplier: 0.5, constant: -3)
         let value1Top = NSLayoutConstraint(item: valueLabel1, attribute: .Top, relatedBy: .Equal, toItem: PadController, attribute: .Bottom, multiplier: 1, constant: 16)
         let value1Lead = NSLayoutConstraint(item: valueLabel1, attribute: .Leading, relatedBy: .Equal, toItem: titleLabel1, attribute: .Trailing, multiplier: 1, constant: 0)
         let value1Trail = NSLayoutConstraint(item: valueLabel1, attribute: .Right, relatedBy: .Equal, toItem: self, attribute: .Right, multiplier: 1, constant: -10)
         
-        let label2Top = NSLayoutConstraint(item: titleLabel2, attribute: .Top, relatedBy: .Equal, toItem: titleLabel1, attribute: .Bottom, multiplier: 1, constant: 8)
+        let label2Allign = NSLayoutConstraint(item: titleLabel2, attribute: .CenterY, relatedBy: .Equal, toItem: valueLabel2, attribute: .CenterY, multiplier: 1, constant: 0)
         let label2Trail = NSLayoutConstraint(item: titleLabel2, attribute: .Trailing, relatedBy: .Equal, toItem: valueLabel2, attribute: .Leading, multiplier: 1, constant: -4)
         let label2Btm = NSLayoutConstraint(item: titleLabel2, attribute: .Bottom, relatedBy: .Equal, toItem: valueLabel2, attribute: .Bottom, multiplier: 1, constant: 0)
-        let value2Top = NSLayoutConstraint(item: valueLabel2, attribute: .Top, relatedBy: .Equal, toItem: valueLabel1, attribute: .Bottom, multiplier: 1, constant: 8)
+        
+        let value2height = NSLayoutConstraint(item: valueLabel2, attribute: .Height, relatedBy: .Equal, toItem: button, attribute: .Height, multiplier: 0.5, constant: -3)
+        let value2Top = NSLayoutConstraint(item: valueLabel2, attribute: .Top, relatedBy: .Equal, toItem: valueLabel1, attribute: .Bottom, multiplier: 1, constant: 6)
         let value2Lead = NSLayoutConstraint(item: valueLabel2, attribute: .Leading, relatedBy: .Equal, toItem: titleLabel2, attribute: .Trailing, multiplier: 1, constant: 0)
         let value2Trail = NSLayoutConstraint(item: valueLabel2, attribute: .Right, relatedBy: .Equal, toItem: self, attribute: .Right, multiplier: 1, constant: -10)
         
-        self.addConstraints([label1Top, label1Trail, label1Btm, value1Top, value1Lead, value1Trail, label2Top, label2Trail, label2Btm, value2Top, value2Lead, value2Trail])
+        self.addConstraints([label1Allign, label1Trail, label1Btm, value1height, value1Top, value1Lead, value1Trail, label2Allign, label2Trail, label2Btm, value2Top, value2height, value2Lead, value2Trail])
         
         
         switch patchTo {
@@ -132,8 +148,8 @@ enum patch {
             valueLabel2.text = " "
             
         case .ParameterControl:
-            titleLabel1.text = "PARAM1"
-            titleLabel2.text = "PARAM2"
+            titleLabel1.text = "PAR1"
+            titleLabel2.text = "PAR2"
             valueLabel1.text = " "
             valueLabel2.text = " "
         }
@@ -181,6 +197,22 @@ enum patch {
     
     
     func setUpSwitch() {
+        let switchView = NSBundle.mainBundle().loadNibNamed("SwitchView", owner: self, options: nil)[0] as! SwitchView
+        self.addSubview(switchView)
+        switchView.switchDelegate = self
+        
+        switchView.translatesAutoresizingMaskIntoConstraints = false
+        
+        let widthConstraint = NSLayoutConstraint(item: switchView, attribute: .Width, relatedBy: .Equal, toItem: button, attribute: .Width, multiplier: 1.5, constant: 0)
+        
+        let heightConstraint = NSLayoutConstraint(item: switchView, attribute: .Height, relatedBy: .Equal, toItem: button, attribute: .Height, multiplier: 1, constant: 0)
+        let switchTop = NSLayoutConstraint(item: switchView, attribute: .Top, relatedBy: .Equal, toItem: PadController, attribute: .Bottom, multiplier: 1, constant: 16)
+        
+        let switchLead = NSLayoutConstraint(item: switchView, attribute: .Leading, relatedBy: .Equal, toItem: button, attribute: .Trailing, multiplier: 1, constant: 8)
+        
+        
+        
+        self.addConstraints([widthConstraint, heightConstraint, switchTop, switchLead])
     }
     
     
@@ -200,16 +232,22 @@ enum patch {
     //MARK: PadDelegate
     
     func didUpdateValues(value1: CGFloat, value2: CGFloat) {
-        if PadController.patchTo == .TapTempo {
+        if PadController.patchType == .TapTempo {
             valueLabel1.text = "\(Int(value1))"
             valueLabel2.text = "\(Int(value2))"
         }
-        if PadController.patchTo == .ParameterControl {
+        if PadController.patchType == .ParameterControl {
             let string1 = String(format:"%.1f", value1)
             let string2 = String(format:"%.1f", value2)
             valueLabel1.text = "\(string1)"
             valueLabel2.text = "\(string2)"
         }
+    }
+    
+    //MARK SwitchViewDelegate
+    
+    func switchDidChangeToState(newState:patch) {
+        patchTo = newState
     }
     
 }

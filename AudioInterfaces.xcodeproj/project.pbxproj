@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1D70BFB71D311CB2003D604B /* SwitchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D70BFB61D311CB2003D604B /* SwitchView.swift */; };
+		1D70BFB91D311CC1003D604B /* SwitchView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D70BFB81D311CC1003D604B /* SwitchView.xib */; };
 		1DAAEB3B1D2FA3C60058E5CF /* TwoParametersCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DAAEB3A1D2FA3C60058E5CF /* TwoParametersCalculator.swift */; };
 		1DAAEB5B1D3026160058E5CF /* PointerCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DAAEB5A1D3026160058E5CF /* PointerCircle.swift */; };
 		5A8FC8ED1D0D4442006C5A20 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8FC8EC1D0D4442006C5A20 /* AppDelegate.swift */; };
@@ -38,6 +40,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1D70BFB61D311CB2003D604B /* SwitchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchView.swift; sourceTree = "<group>"; };
+		1D70BFB81D311CC1003D604B /* SwitchView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SwitchView.xib; sourceTree = "<group>"; };
 		1DAAEB3A1D2FA3C60058E5CF /* TwoParametersCalculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwoParametersCalculator.swift; sourceTree = "<group>"; };
 		1DAAEB5A1D3026160058E5CF /* PointerCircle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PointerCircle.swift; sourceTree = "<group>"; };
 		5A8FC8E91D0D4442006C5A20 /* AudioInterfaces.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AudioInterfaces.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -80,6 +84,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1D70BFB51D311C8E003D604B /* PadViews */ = {
+			isa = PBXGroup;
+			children = (
+				BD5F50031D116062000F291D /* PadView.swift */,
+				BD7897D61D12A9020011DFF6 /* Pad.swift */,
+				1DAAEB5A1D3026160058E5CF /* PointerCircle.swift */,
+				1D70BFB61D311CB2003D604B /* SwitchView.swift */,
+				1D70BFB81D311CC1003D604B /* SwitchView.xib */,
+			);
+			name = PadViews;
+			sourceTree = "<group>";
+		};
 		5A8FC8E01D0D4442006C5A20 = {
 			isa = PBXGroup;
 			children = (
@@ -147,11 +163,9 @@
 		5A8FC9181D0D48D2006C5A20 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				1D70BFB51D311C8E003D604B /* PadViews */,
 				5A8FC9141D0D48B6006C5A20 /* SimpleKnob.swift */,
 				BD6B22AE1D0F085C00E61F04 /* ScaledKnob.swift */,
-				BD5F50031D116062000F291D /* PadView.swift */,
-				BD7897D61D12A9020011DFF6 /* Pad.swift */,
-				1DAAEB5A1D3026160058E5CF /* PointerCircle.swift */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -237,6 +251,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1D70BFB91D311CC1003D604B /* SwitchView.xib in Resources */,
 				5A8FC8F71D0D4442006C5A20 /* LaunchScreen.storyboard in Resources */,
 				5A8FC8F41D0D4442006C5A20 /* Assets.xcassets in Resources */,
 				5A8FC8F21D0D4442006C5A20 /* Main.storyboard in Resources */,
@@ -265,6 +280,7 @@
 				1DAAEB5B1D3026160058E5CF /* PointerCircle.swift in Sources */,
 				5A8FC9101D0D47AF006C5A20 /* ContinuousKnobCalculator.swift in Sources */,
 				BD7897D71D12A9020011DFF6 /* Pad.swift in Sources */,
+				1D70BFB71D311CB2003D604B /* SwitchView.swift in Sources */,
 				BD5F50041D116062000F291D /* PadView.swift in Sources */,
 				5A8FC8ED1D0D4442006C5A20 /* AppDelegate.swift in Sources */,
 				BD7897D51D12A0930011DFF6 /* TapTempoCalculator.swift in Sources */,

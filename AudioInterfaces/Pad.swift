@@ -15,7 +15,12 @@ import UIKit
     @IBInspectable var backColor: UIColor = UIColor.yellowColor()
     @IBInspectable var lineWidth:CGFloat = 2
     @IBInspectable var leadSpaceBetweenLines: CGFloat = 20
-    @IBInspectable var patchTo: patch = .ParameterControl
+    var patchType: patch = .ParameterControl {
+        didSet {
+            setNeedsDisplay()
+            setUpView()
+        }
+    }
     @IBInspectable var maximumValuePar1: Double = 0.0
     @IBInspectable var maximumValuePar2: Double = 0.0
     
@@ -30,11 +35,12 @@ import UIKit
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        setUpView()
     }
     
     func setUpView () {
         
-        switch patchTo {
+        switch patchType {
             
         case .TapTempo:
             self.gestureRecognizers = []
@@ -42,6 +48,9 @@ import UIKit
             self.addGestureRecognizer(tapGesture!)
             tapGesture!.delegate = self
             self.delegate = TapTempoCalculator()
+            if subviews.contains(pointer) {
+                pointer.removeFromSuperview()
+            }
             
         case .ParameterControl:
             self.gestureRecognizers = []
@@ -107,7 +116,7 @@ import UIKit
     
     override func drawRect(rect: CGRect) {
         super.drawRect(rect)
-        switch patchTo {
+        switch patchType {
         case .TapTempo:
             drawForTap(rect)
         case .ParameterControl:

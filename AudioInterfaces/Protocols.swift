@@ -47,3 +47,7 @@ protocol SteppedKnobDelegate {
 protocol PadDelegate {
     func didUpdateValues(value1: CGFloat, value2: CGFloat)
 }
+
+protocol switchViewDelegate {
+    func switchDidChangeToState(newState:patch)
+}
