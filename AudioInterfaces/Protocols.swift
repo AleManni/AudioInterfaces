@@ -9,6 +9,8 @@
 import UIKit
 
 
+//MARK: - Private protocols
+
 protocol KnobProtocol {
     var knobStartAngle: CGFloat { get }
     var knobEndAngle: CGFloat { get }

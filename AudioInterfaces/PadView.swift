@@ -15,7 +15,7 @@ enum patch {
 
 //Note: action for Button needs to be defined programmatically below by the end user!
 
-@IBDesignable class PadView: UIView, PadDelegate, switchViewDelegate {
+@IBDesignable public class PadView: UIView, PadDelegate, switchViewDelegate {
     
     var PadController = Pad()
     @IBInspectable var gridColor: UIColor = UIColor.orangeColor()
@@ -29,13 +29,17 @@ enum patch {
     @IBInspectable var maximumValuePar1: Double = 0.0
     @IBInspectable var maximumValuePar2: Double = 0.0
     
+    let button = UIButton()
+    var buttonAction: ( ()->() )?
+    
+    private var buttonGesture: UITapGestureRecognizer?
     private let titleLabel1 = UILabel()
     private let titleLabel2 = UILabel()
     private let valueLabel1 = UILabel()
     private let valueLabel2 = UILabel()
-    private let button = UIButton()
     
-    var patchTo: patch = .ParameterControl {
+    
+    private var patchTo: patch = .ParameterControl {
         didSet {
             setUpPadController ()
             setUpLabels([titleLabel1, valueLabel1, titleLabel2, valueLabel2])
@@ -43,7 +47,7 @@ enum patch {
         }
     }
     
-    override func awakeFromNib() {
+    override public func awakeFromNib() {
         super.awakeFromNib()
         self.addSubview(PadController)
         setUpPadController ()
@@ -52,6 +56,8 @@ enum patch {
         setUpButton()
         setUpSwitch()
     }
+    
+    
     
     
     private func setUpPadController () {
@@ -91,9 +97,7 @@ enum patch {
         self.addSubview(valueLabel2)
         
         for label in labels {
-            
-            
-            label.font = UIFont(name: "Zapf Dingbats", size: 9)
+            label.font = Constants.Fonts().smallFont 
             label.sizeToFit()
             
             if label == valueLabel1 || label == valueLabel2 {
@@ -170,23 +174,28 @@ enum patch {
         }
         
         button.showsTouchWhenHighlighted = true
-        
+        button.titleLabel!.font = Constants.Fonts().smallFont
+        button.titleLabel?.minimumScaleFactor = 0.5
+        button.titleLabel?.allowsDefaultTighteningForTruncation
         button.translatesAutoresizingMaskIntoConstraints = false
         
         let widthConstraint = NSLayoutConstraint(item: button, attribute: .Width, relatedBy: .Equal, toItem: PadController, attribute: .Width, multiplier: 0.25, constant: 0)
         let buttonTop = NSLayoutConstraint(item: button, attribute: .Top, relatedBy: .Equal, toItem: PadController, attribute: .Bottom, multiplier: 1, constant: 16)
         let buttonLead = NSLayoutConstraint(item: button, attribute: .Leading, relatedBy: .Equal, toItem: PadController, attribute: .Leading, multiplier: 1, constant: 0)
-        
         let  heightConstraint = NSLayoutConstraint(item: button, attribute: .Height, relatedBy: .Equal, toItem: button, attribute: .Height, multiplier: 1, constant: 32)
         
         self.addConstraints([widthConstraint, buttonTop, buttonLead, heightConstraint])
         
-        layoutIfNeeded()
-        
+        buttonGesture = UITapGestureRecognizer(target: self, action: #selector(performButtonAction))
+        button.addGestureRecognizer(buttonGesture!)
+         layoutIfNeeded()
     }
     
-    
-    
+    func performButtonAction () {
+        if let _ = buttonAction {
+            buttonAction!()
+        }
+    }
     
     private func setUpSwitch() {
         let switchView = NSBundle.mainBundle().loadNibNamed("SwitchView", owner: self, options: nil)[0] as! SwitchView
@@ -239,10 +248,6 @@ enum patch {
     
 }
 
-//BUTTON API
 
-func setUpButton(title: String, action: ()-> Void ) {
-    
-}
 
 
