@@ -24,8 +24,10 @@ class Constants: NSObject {
     
     static let sharedValues = Constants()
     
-    override init () {
-    super.init()
+    struct Fonts {
+        let smallFont = UIFont(name: "Zapf Dingbats", size: 9)
+        let regularFont = UIFont(name: "Zapf Dingbats", size: 11)
+        let largeFont = UIFont(name: "Zapf Dingbats", size: 13)
     }
     
     

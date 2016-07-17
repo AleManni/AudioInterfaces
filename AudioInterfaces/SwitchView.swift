@@ -16,19 +16,18 @@ class SwitchView: UIView {
     @IBOutlet weak var overLayView: UIView!
     var switchDelegate: switchViewDelegate?
     var swipe: UISwipeGestureRecognizer?
-    
     var state: patch = .ParameterControl {
         didSet {
             switchToState(state)
         }
     }
     
-    
-    
     override func awakeFromNib() {
         swipe = UISwipeGestureRecognizer(target: self, action: #selector(SwitchView.didSwipe))
         swipe!.direction = .Right
         overLayView.addGestureRecognizer(swipe!)
+        parametersLabel.font = Constants.Fonts().regularFont
+        tapLabel.font = Constants.Fonts().regularFont
     }
     
     func switchToState(newState:patch){
