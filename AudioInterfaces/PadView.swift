@@ -169,6 +169,8 @@ enum patch {
             button.setTitle(title, forState: .Normal)
         }
         
+        button.showsTouchWhenHighlighted = true
+        
         button.translatesAutoresizingMaskIntoConstraints = false
         
         let widthConstraint = NSLayoutConstraint(item: button, attribute: .Width, relatedBy: .Equal, toItem: PadController, attribute: .Width, multiplier: 0.25, constant: 0)
@@ -182,6 +184,7 @@ enum patch {
         layoutIfNeeded()
         
     }
+    
     
     
     
@@ -236,6 +239,10 @@ enum patch {
     
 }
 
+//BUTTON API
 
+func setUpButton(title: String, action: ()-> Void ) {
+    
+}
 
 
