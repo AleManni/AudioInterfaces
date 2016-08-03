@@ -50,10 +50,10 @@ enum patch {
     override public func awakeFromNib() {
         super.awakeFromNib()
         self.addSubview(PadController)
-        setUpPadController ()
+        setUpPadController()
         PadController.setUpView()
-        setUpLabels([titleLabel1, valueLabel1, titleLabel2, valueLabel2])
         setUpButton()
+        setUpLabels([titleLabel1, valueLabel1, titleLabel2, valueLabel2])
         setUpSwitch()
     }
     
@@ -127,7 +127,7 @@ enum patch {
         
         let value1height = NSLayoutConstraint(item: valueLabel1, attribute: .Height, relatedBy: .Equal, toItem: button, attribute: .Height, multiplier: 0.5, constant: -3)
         let value1Top = NSLayoutConstraint(item: valueLabel1, attribute: .Top, relatedBy: .Equal, toItem: PadController, attribute: .Bottom, multiplier: 1, constant: 16)
-        let value1Lead = NSLayoutConstraint(item: valueLabel1, attribute: .Leading, relatedBy: .Equal, toItem: titleLabel1, attribute: .Trailing, multiplier: 1, constant: 0)
+        let value1Lead = NSLayoutConstraint(item: valueLabel1, attribute: .Leading, relatedBy: .Equal, toItem: titleLabel1, attribute: .Trailing, multiplier: 1, constant: 4)
         let value1Trail = NSLayoutConstraint(item: valueLabel1, attribute: .Right, relatedBy: .Equal, toItem: self, attribute: .Right, multiplier: 1, constant: -10)
         
         let label2Allign = NSLayoutConstraint(item: titleLabel2, attribute: .CenterY, relatedBy: .Equal, toItem: valueLabel2, attribute: .CenterY, multiplier: 1, constant: 0)
@@ -136,7 +136,7 @@ enum patch {
         
         let value2height = NSLayoutConstraint(item: valueLabel2, attribute: .Height, relatedBy: .Equal, toItem: button, attribute: .Height, multiplier: 0.5, constant: -3)
         let value2Top = NSLayoutConstraint(item: valueLabel2, attribute: .Top, relatedBy: .Equal, toItem: valueLabel1, attribute: .Bottom, multiplier: 1, constant: 6)
-        let value2Lead = NSLayoutConstraint(item: valueLabel2, attribute: .Leading, relatedBy: .Equal, toItem: titleLabel2, attribute: .Trailing, multiplier: 1, constant: 0)
+        let value2Lead = NSLayoutConstraint(item: valueLabel2, attribute: .Leading, relatedBy: .Equal, toItem: titleLabel2, attribute: .Trailing, multiplier: 1, constant: 4)
         let value2Trail = NSLayoutConstraint(item: valueLabel2, attribute: .Right, relatedBy: .Equal, toItem: self, attribute: .Right, multiplier: 1, constant: -10)
         
         self.addConstraints([label1Allign, label1Trail, label1Btm, value1height, value1Top, value1Lead, value1Trail, label2Allign, label2Trail, label2Btm, value2Top, value2height, value2Lead, value2Trail])
@@ -182,7 +182,7 @@ enum patch {
         let widthConstraint = NSLayoutConstraint(item: button, attribute: .Width, relatedBy: .Equal, toItem: PadController, attribute: .Width, multiplier: 0.25, constant: 0)
         let buttonTop = NSLayoutConstraint(item: button, attribute: .Top, relatedBy: .Equal, toItem: PadController, attribute: .Bottom, multiplier: 1, constant: 16)
         let buttonLead = NSLayoutConstraint(item: button, attribute: .Leading, relatedBy: .Equal, toItem: PadController, attribute: .Leading, multiplier: 1, constant: 0)
-        let  heightConstraint = NSLayoutConstraint(item: button, attribute: .Height, relatedBy: .Equal, toItem: button, attribute: .Height, multiplier: 1, constant: 32)
+        let  heightConstraint = NSLayoutConstraint(item: button, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 32)
         
         self.addConstraints([widthConstraint, buttonTop, buttonLead, heightConstraint])
         
@@ -210,8 +210,6 @@ enum patch {
         let switchTop = NSLayoutConstraint(item: switchView, attribute: .Top, relatedBy: .Equal, toItem: PadController, attribute: .Bottom, multiplier: 1, constant: 16)
         
         let switchLead = NSLayoutConstraint(item: switchView, attribute: .Leading, relatedBy: .Equal, toItem: button, attribute: .Trailing, multiplier: 1, constant: 8)
-        
-        
         
         self.addConstraints([widthConstraint, heightConstraint, switchTop, switchLead])
     }
