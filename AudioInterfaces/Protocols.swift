@@ -12,16 +12,16 @@ import UIKit
 //MARK: - Private protocols
 
 protocol KnobProtocol {
-    var knobStartAngle: CGFloat { get }
-    var knobEndAngle: CGFloat { get }
+    var knobStartAngle: CGFloat {get}
+    var knobEndAngle: CGFloat {get}
     var touchValueInDegrees: Double {set get}
     var minValue: Int {set get}
     var maxValue: Int {set get}
 }
 
 protocol SteppedKnobProtocol {
-    var knobStartAngle: CGFloat { get }
-    var knobEndAngle: CGFloat { get }
+    var knobStartAngle: CGFloat {get}
+    var knobEndAngle: CGFloat {get}
     var touchValueInDegrees: Double {set get}
     var minValue: Int {set get}
     var maxValue: Int {set get}

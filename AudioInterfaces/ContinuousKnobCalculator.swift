@@ -20,7 +20,7 @@ class ContinuousKnobCalculator: KnobDelegate {
     
     func handleRotationforKnob<T:KnobProtocol>(knob: T, sender: AnyObject) {
         
-         managedKnob = knob
+        managedKnob = knob
         
         let gr = sender as! RotationGestureRecognizer
         
@@ -46,10 +46,13 @@ class ContinuousKnobCalculator: KnobDelegate {
         managedKnob.touchValueInDegrees = delta
     }
     
+    func calculateOutputValue <T:KnobProtocol> (knob: T, sender: AnyObject) -> CGFloat {
+        let angleRangeDegr = RadiansToDegrees(Double (knob.knobEndAngle - knob.knobStartAngle))
+        return CGFloat (delta/angleRangeDegr) * CGFloat (knob.maxValue)
+    }
+
     
-    
-    func calculateDelta(selectedAngleDegr:Double) -> Double {
-        
+    private func calculateDelta(selectedAngleDegr:Double) -> Double {
         guard let knob = managedKnob else { return 0.0 }
         let startAngleDegr = RadiansToDegrees(Double (knob.knobStartAngle))
         let endAngleDegr = RadiansToDegrees(Double (knob.knobEndAngle))
@@ -79,14 +82,8 @@ class ContinuousKnobCalculator: KnobDelegate {
         
     }
     
-    func calculateOutputValue <T:KnobProtocol> (knob: T, sender: AnyObject) -> CGFloat {
-        let angleRangeDegr = RadiansToDegrees(Double (knob.knobEndAngle - knob.knobStartAngle))
-        return CGFloat (delta/angleRangeDegr) * CGFloat (knob.maxValue)
-    }
     
-    
-    
-    func RadiansToDegrees (value:Double) -> Double {
+    private func RadiansToDegrees (value:Double) -> Double {
         var result = value * (180.0 / M_PI)
         if result < 0 {
             result += 360

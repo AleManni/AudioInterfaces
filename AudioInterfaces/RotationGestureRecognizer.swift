@@ -40,7 +40,6 @@ class RotationGestureRecognizer: UIPanGestureRecognizer {
     func rotationForLocation(location: CGPoint) -> CGFloat {
         let offset = CGPoint(x: location.x - view!.bounds.midX, y: location.y - view!.bounds.midY)
         return atan2(offset.y, offset.x)
-        
     }
 }
 

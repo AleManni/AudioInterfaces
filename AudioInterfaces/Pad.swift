@@ -65,7 +65,6 @@ import UIKit
             pointer.opaque = false
             pointer.color = gridColor
             pointer.center = CGPoint(x: (self.bounds.minX + pointer.frame.size.width), y: (self.bounds.maxY-pointer.frame.size.height))
-            print(pointer.frame)
         }
         
         setNeedsLayout()

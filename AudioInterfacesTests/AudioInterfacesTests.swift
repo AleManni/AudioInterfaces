@@ -13,7 +13,7 @@ class AudioInterfacesTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        let testKnob = SimpleKnob()
     }
     
     override func tearDown() {
@@ -21,10 +21,15 @@ class AudioInterfacesTests: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
+    func testSimpleKnobDefaultInit() {
+        let knob = SimpleKnob()
+        XCTAssertTrue(knob.startAngle == .ThreeQuarters, "Default start angle value should be ThreeQuarters")
+        XCTAssertTrue(knob.endAngle == .Quarter, "Default end angle value should be .Quarter")
+        XCTAssertTrue(knob.minValue == 0, "Default minvalue should be 0")
+        XCTAssertTrue(knob.maxValue == 10, "Default max value should be 10")
+            }
+    
+    
     
     func testPerformanceExample() {
         // This is an example of a performance test case.
