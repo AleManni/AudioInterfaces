@@ -11,10 +11,10 @@ import UIKit
 
 
 enum angleSections: CGFloat {
-    case Quarter = 1.0
-    case Half = 2.0
-    case ThreeQuarters = 3.0
-    case Full = 4.0
+    case quarter = 1.0
+    case half = 2.0
+    case threeQuarters = 3.0
+    case full = 4.0
 }
 
 @IBDesignable class SimpleKnob: UIView, KnobProtocol {
@@ -26,8 +26,8 @@ enum angleSections: CGFloat {
     
     let valueLabel = UILabel()
     
-    @IBInspectable var outlineColor: UIColor = UIColor.blueColor()
-    @IBInspectable var counterColor: UIColor = UIColor.orangeColor()
+    @IBInspectable var outlineColor: UIColor = UIColor.blue
+    @IBInspectable var counterColor: UIColor = UIColor.orange
     @IBInspectable var knobStrokeDimension: CGFloat = Constants.sharedValues.knobDimension
     @IBInspectable var minValue: Int = 0
     @IBInspectable var maxValue: Int = 10
@@ -39,8 +39,8 @@ enum angleSections: CGFloat {
     }
     
     
-    var startAngle: angleSections = .ThreeQuarters
-    var endAngle: angleSections = .Quarter
+    var startAngle: angleSections = .threeQuarters
+    var endAngle: angleSections = .quarter
     
     var knobStartAngle: CGFloat {
         get {
@@ -57,7 +57,7 @@ enum angleSections: CGFloat {
     
     
     
-    @IBInspectable var touchValueInDegrees: Double = 0.0
+    @IBInspectable var touchValueInDegrees: CGFloat = 0.0
     
     var rotationGestureRecognizer: RotationGestureRecognizer?
     
@@ -77,9 +77,9 @@ enum angleSections: CGFloat {
         let dimension: CGFloat = 86.0
         let xPosition = (self.bounds.size.width/2) - (dimension/2)
         let yPosition = (self.bounds.size.height/2) - (dimension/2)
-        valueLabel.frame = CGRectMake(xPosition, yPosition, 86, 86)
-        valueLabel.contentMode = .Center
-        valueLabel.textAlignment = .Center
+        valueLabel.frame = CGRect(x: xPosition, y: yPosition, width: 86, height: 86)
+        valueLabel.contentMode = .center
+        valueLabel.textAlignment = .center
         valueLabel.font = UIFont(name: "HelveticaNeue-Bold",
                                  size: 20.0)
         
@@ -88,7 +88,7 @@ enum angleSections: CGFloat {
     
     //MARK: Draw functions
     
-    override func drawRect(rect: CGRect) {
+    override func draw(_ rect: CGRect) {
         
         drawTheInLine()
         drawTheOutLine(valueRange, touchPositionInRange: touchValueInDegrees)
@@ -96,7 +96,7 @@ enum angleSections: CGFloat {
     }
     
     
-    private func drawRunPath () -> UIBezierPath {
+    fileprivate func drawRunPath () -> UIBezierPath {
         
         let center = CGPoint(x:bounds.width/2, y: bounds.height/2)
         
@@ -116,7 +116,7 @@ enum angleSections: CGFloat {
         
     }
     
-    private func drawTheInLine () {
+    fileprivate func drawTheInLine () {
         
         let path = drawRunPath()
         counterColor.setStroke()
@@ -124,7 +124,7 @@ enum angleSections: CGFloat {
         
     }
     
-    private func drawTheOutLine (range: Int, touchPositionInRange: Double) {
+    fileprivate func drawTheOutLine (_ range: Int, touchPositionInRange: CGFloat) {
         
         let arcWidth: CGFloat = knobStrokeDimension
         let center = CGPoint(x:bounds.width/2, y: bounds.height/2)
@@ -147,14 +147,14 @@ enum angleSections: CGFloat {
                                        clockwise: true)
         
         //draw the inner arc
-        outlinePath.addArcWithCenter(center,
+        outlinePath.addArc(withCenter: center,
                                      radius: bounds.width/2 - arcWidth - padding,
                                      startAngle: outlineEndAngle,
                                      endAngle: knobStartAngle,
                                      clockwise: false)
         
         //close the path
-        outlinePath.closePath()
+        outlinePath.close()
         //Stroke the path
         outlineColor.setStroke()
         outlinePath.lineWidth = 5.0
@@ -174,7 +174,7 @@ enum angleSections: CGFloat {
         }
     }
     
-    func didReceiveTouch (sender: AnyObject) {
+    func didReceiveTouch (_ sender: AnyObject) {
         
         if let knobDelegate = delegate as? ContinuousKnobCalculator {
             knobDelegate.handleRotationforKnob(self, sender: rotationGestureRecognizer!)
@@ -185,7 +185,7 @@ enum angleSections: CGFloat {
     
     //MARK: Utilities
     
-    func RadiansToDegrees (value:Double) -> Double {
+    func RadiansToDegrees (_ value:Double) -> Double {
         var result = value * (180.0 / M_PI)
         if result < 0 {
             result += 360
