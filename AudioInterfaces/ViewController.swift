@@ -15,7 +15,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         padView.buttonAction = {
-            self.padView.button.setTitle("Test action", forState: .Normal)
+            self.padView.button.setTitle("Test action", for: UIControlState())
             self.padView.setNeedsLayout()
         }
     }

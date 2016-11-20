@@ -14,7 +14,7 @@ import UIKit
 protocol KnobProtocol {
     var knobStartAngle: CGFloat {get}
     var knobEndAngle: CGFloat {get}
-    var touchValueInDegrees: Double {set get}
+    var touchValueInDegrees: CGFloat {set get}
     var minValue: Int {set get}
     var maxValue: Int {set get}
 }
@@ -22,7 +22,7 @@ protocol KnobProtocol {
 protocol SteppedKnobProtocol {
     var knobStartAngle: CGFloat {get}
     var knobEndAngle: CGFloat {get}
-    var touchValueInDegrees: Double {set get}
+    var touchValueInDegrees: CGFloat  {set get}
     var minValue: Int {set get}
     var maxValue: Int {set get}
     var primaryMarksMultiplier: UInt {set get}
@@ -37,19 +37,19 @@ protocol PadProtocol {
 
 
 protocol KnobDelegate {
-    func handleRotationforKnob <T:KnobProtocol> (knob: T, sender: AnyObject)
-    func calculateOutputValue <T:KnobProtocol> (knob: T, sender: AnyObject) -> CGFloat
+    func handleRotationforKnob <T:KnobProtocol> (_ knob: T, sender: AnyObject)
+    func calculateOutputValue <T:KnobProtocol> (_ knob: T, sender: AnyObject) -> CGFloat
 }
 
 protocol SteppedKnobDelegate {
-    func handleRotationforSteppedKnob <T:SteppedKnobProtocol> (steppedKnob: T, sender: AnyObject)
-    func calculateOutputValue <T:SteppedKnobProtocol> (steppedKnob: T, sender: AnyObject) -> CGFloat
+    func handleRotationforSteppedKnob <T:SteppedKnobProtocol> (_ steppedKnob: T, sender: AnyObject)
+    func calculateOutputValue <T:SteppedKnobProtocol> (_ steppedKnob: T, sender: AnyObject) -> CGFloat
 }
 
 protocol PadDelegate {
-    func didUpdateValues(value1: CGFloat, value2: CGFloat)
+    func didUpdateValues(_ value1: CGFloat, value2: CGFloat)
 }
 
 protocol switchViewDelegate {
-    func switchDidChangeToState(newState:patch)
+    func switchDidChangeToState(_ newState:patch)
 }

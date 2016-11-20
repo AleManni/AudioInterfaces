@@ -12,7 +12,7 @@ import UIKit
 class TapTempoCalculator {
     
     // var managedPad: SteppedKnobProtocol?
-    var tapArray: [NSTimeInterval] = []
+    var tapArray: [TimeInterval] = []
     
     
     var averageTime: Double = 0.0
@@ -31,13 +31,13 @@ class TapTempoCalculator {
 
     func didTapTempo () {
         
-        storeTaps(NSDate().timeIntervalSinceReferenceDate)
+        storeTaps(Date().timeIntervalSinceReferenceDate)
         calculateAverageTime()
         calculateBPM()
         
     }
     
-    func storeTaps (tapTime: NSTimeInterval) {
+    func storeTaps (_ tapTime: TimeInterval) {
         
         guard !tapArray.isEmpty else {
             tapArray.append(tapTime)

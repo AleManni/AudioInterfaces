@@ -16,7 +16,7 @@ class SwitchView: UIView {
     @IBOutlet weak var overLayView: UIView!
     var switchDelegate: switchViewDelegate?
     var swipe: UISwipeGestureRecognizer?
-    var state: patch = .ParameterControl {
+    var state: patch = .parameterControl {
         didSet {
             switchToState(state)
         }
@@ -24,20 +24,20 @@ class SwitchView: UIView {
     
     override func awakeFromNib() {
         swipe = UISwipeGestureRecognizer(target: self, action: #selector(SwitchView.didSwipe))
-        swipe!.direction = .Right
+        swipe!.direction = .right
         overLayView.addGestureRecognizer(swipe!)
         parametersLabel.font = Constants.Fonts().regularFont
         tapLabel.font = Constants.Fonts().regularFont
     }
     
-    func switchToState(newState:patch){
+    func switchToState(_ newState:patch){
         if let delegate = switchDelegate {
             delegate.switchDidChangeToState(newState)
         }
         switch newState {
-        case .TapTempo:
+        case .tapTempo:
             animateToTapTempo()
-        case .ParameterControl:
+        case .parameterControl:
             animateToParametersControl()
         }
     }
@@ -45,16 +45,16 @@ class SwitchView: UIView {
     func didSwipe() {
         switch swipe!.direction {
             
-        case UISwipeGestureRecognizerDirection.Left:
-            if state == .ParameterControl {return}
-            state = .ParameterControl
-            swipe?.direction = .Right
+        case UISwipeGestureRecognizerDirection.left:
+            if state == .parameterControl {return}
+            state = .parameterControl
+            swipe?.direction = .right
             return
             
-        case UISwipeGestureRecognizerDirection.Right:
-            if state == .TapTempo {return}
-            state = .TapTempo
-            swipe?.direction = .Left
+        case UISwipeGestureRecognizerDirection.right:
+            if state == .tapTempo {return}
+            state = .tapTempo
+            swipe?.direction = .left
             return
             
         default:
@@ -64,24 +64,24 @@ class SwitchView: UIView {
     }
     
     func animateToTapTempo() {
-        UIView.animateWithDuration(0.1, animations: {
-            self.tapLabel.backgroundColor = UIColor.blackColor()
-            self.tapLabel.textColor = UIColor.whiteColor()
+        UIView.animate(withDuration: 0.1, animations: {
+            self.tapLabel.backgroundColor = UIColor.black
+            self.tapLabel.textColor = UIColor.white
             self.overlayLead.constant = self.parametersLabel.frame.size.width
-            self.parametersLabel.backgroundColor = UIColor.lightGrayColor()
-            self.parametersLabel.textColor = UIColor.blackColor()
+            self.parametersLabel.backgroundColor = UIColor.lightGray
+            self.parametersLabel.textColor = UIColor.black
             self.layoutIfNeeded()
         })
     }
     
     
     func animateToParametersControl() {
-        UIView.animateWithDuration(0.1, animations: {
-            self.parametersLabel.backgroundColor = UIColor.blackColor()
-            self.parametersLabel.textColor = UIColor.whiteColor()
+        UIView.animate(withDuration: 0.1, animations: {
+            self.parametersLabel.backgroundColor = UIColor.black
+            self.parametersLabel.textColor = UIColor.white
             self.overlayLead.constant = 0
-            self.tapLabel.backgroundColor = UIColor.lightGrayColor()
-            self.tapLabel.textColor = UIColor.blackColor()
+            self.tapLabel.backgroundColor = UIColor.lightGray
+            self.tapLabel.textColor = UIColor.black
             self.layoutIfNeeded()
         })
     }

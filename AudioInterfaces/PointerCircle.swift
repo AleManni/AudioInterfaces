@@ -11,9 +11,9 @@ import QuartzCore
 
 @IBDesignable class PointerCircle: UIView {
     
-    var color: UIColor = UIColor.blackColor()
+    var color: UIColor = UIColor.black
     
-    override func drawRect(rect: CGRect) {
+    override func draw(_ rect: CGRect) {
         
         let center = CGPoint(x:5, y: 5)
         

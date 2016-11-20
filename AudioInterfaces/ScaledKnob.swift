@@ -15,11 +15,10 @@ class ScaledKnob: SimpleKnob, SteppedKnobProtocol {
     
     @IBInspectable var primaryMarksMultiplier: UInt = 1
     @IBInspectable var secondaryMarksMultiplier: UInt = 0
-    let primaryMarkerWidth:CGFloat = 5.0
-    let primaryMarkerSize:CGFloat = 10.0
+    let primaryMarkerWidth: CGFloat = 5.0
+    let primaryMarkerSize: CGFloat = 10.0
     let secondaryMarkerWidth: CGFloat = 2.5
     let secondaryMarkerSize: CGFloat = 5.0
-    
     var  arcLengthPerUnitValue: CGFloat {
         get {
             let angleDifference: CGFloat = 2 * π - knobStartAngle + knobEndAngle
@@ -42,8 +41,8 @@ class ScaledKnob: SimpleKnob, SteppedKnobProtocol {
     
     //MARK: Draw functions
     
-    override func drawRect(rect: CGRect) {
-        super.drawRect(rect)
+    override func draw(_ rect: CGRect) {
+        super.draw(rect)
         
         
         
@@ -52,11 +51,11 @@ class ScaledKnob: SimpleKnob, SteppedKnobProtocol {
         
     }
     
-    func drawMarks(markerWidth: CGFloat, markerSize: CGFloat, multiplier: UInt) {
+    func drawMarks(_ markerWidth: CGFloat, markerSize: CGFloat, multiplier: UInt) {
         
         let context = UIGraphicsGetCurrentContext()
         
-        CGContextSaveGState(context)
+        context?.saveGState()
         
         outlineColor.setFill()
         
@@ -68,9 +67,8 @@ class ScaledKnob: SimpleKnob, SteppedKnobProtocol {
                 height: markerSize))
         
         
-        CGContextTranslateCTM(context,
-                              self.bounds.size.width/2,
-                              self.bounds.size.height/2)
+        context?.translateBy(x: self.bounds.size.width/2,
+                              y: self.bounds.size.height/2)
         
         let valueRange = self.maxValue - self.minValue
         
@@ -78,31 +76,30 @@ class ScaledKnob: SimpleKnob, SteppedKnobProtocol {
         
         for i in 1...valueRange * Int(multiplier) {
             
-            CGContextSaveGState(context)
+            context?.saveGState()
             
             let arcLenghtPerSubUnit = arcLengthPerUnitValue/CGFloat(multiplier)
             
             let angle = (arcLenghtPerSubUnit * CGFloat(i)) + knobStartAngle - π/2
         
             
-            CGContextRotateCTM(context, angle)
-            CGContextTranslateCTM(context,
-                                  0,
-                                  self.bounds.size.height/2 - markerSize)
+            context?.rotate(by: angle)
+            context?.translateBy(x: 0,
+                                  y: self.bounds.size.height/2 - markerSize)
             
             markerPath.fill()
             
-            CGContextRestoreGState(context)
+            context?.restoreGState()
         }
         }
         
-        CGContextRestoreGState(context)
+        context?.restoreGState()
     }
     
     
     //MARK: Actions
     
-    override func didReceiveTouch (sender: AnyObject) {
+    override func didReceiveTouch (_ sender: AnyObject) {
         
         if let knobDelegate = delegate as? SteppedKnobCalculator {
             knobDelegate.handleRotationforSteppedKnob(self, sender: rotationGestureRecognizer!)

@@ -12,32 +12,31 @@ import UIKit.UIGestureRecognizerSubclass
 class RotationGestureRecognizer: UIPanGestureRecognizer {
     var rotation: CGFloat = 0.0
     
-    override init(target: AnyObject?, action: Selector) {
+    override init(target: Any?, action: Selector?) {
         super.init(target: target, action: action)
         
         minimumNumberOfTouches = 1
         maximumNumberOfTouches = 1
     }
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent) {
-        super.touchesBegan(touches, withEvent: event)
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent) {
+        super.touchesBegan(touches, with: event)
         
         updateRotationWithTouches(touches)
     }
     
-    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent) {
-        super.touchesMoved(touches, withEvent: event)
-        
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent) {
+        super.touchesMoved(touches, with: event)
         updateRotationWithTouches(touches)
     }
     
-    func updateRotationWithTouches(touches: Set<NSObject>) {
+    func updateRotationWithTouches(_ touches: Set<NSObject>) {
         if let touch = touches[touches.startIndex] as? UITouch {
-            self.rotation = rotationForLocation(touch.locationInView(self.view))
+            self.rotation = rotationForLocation(touch.location(in: self.view))
         }
     }
     
-    func rotationForLocation(location: CGPoint) -> CGFloat {
+    func rotationForLocation(_ location: CGPoint) -> CGFloat {
         let offset = CGPoint(x: location.x - view!.bounds.midX, y: location.y - view!.bounds.midY)
         return atan2(offset.y, offset.x)
     }

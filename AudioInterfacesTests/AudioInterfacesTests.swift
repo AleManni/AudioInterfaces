@@ -23,8 +23,8 @@ class AudioInterfacesTests: XCTestCase {
     
     func testSimpleKnobDefaultInit() {
         let knob = SimpleKnob()
-        XCTAssertTrue(knob.startAngle == .ThreeQuarters, "Default start angle value should be ThreeQuarters")
-        XCTAssertTrue(knob.endAngle == .Quarter, "Default end angle value should be .Quarter")
+        XCTAssertTrue(knob.startAngle == .threeQuarters, "Default start angle value should be ThreeQuarters")
+        XCTAssertTrue(knob.endAngle == .quarter, "Default end angle value should be .Quarter")
         XCTAssertTrue(knob.minValue == 0, "Default minvalue should be 0")
         XCTAssertTrue(knob.maxValue == 10, "Default max value should be 10")
             }
@@ -33,7 +33,7 @@ class AudioInterfacesTests: XCTestCase {
     
     func testPerformanceExample() {
         // This is an example of a performance test case.
-        self.measureBlock {
+        self.measure {
             // Put the code you want to measure the time of here.
         }
     }
