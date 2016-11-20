@@ -2,7 +2,7 @@
 //  TapTempoCalculator.swift
 //  AudioInterfaces
 //
-//  Created by Alessandro Manni - 16/06/2016.
+//  Created by Alessandro Manni on 16/06/2016.
 //  Copyright © 2016 Alessandro Manni. All rights reserved.
 //
 

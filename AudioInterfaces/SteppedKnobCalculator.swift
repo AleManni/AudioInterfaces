@@ -2,7 +2,7 @@
 //  SteppedKnobModel.swift
 //  AudioInterfaces
 //
-//  Created by Carolina Gigler on 14/06/2016.
+//  Created by Alessandro Manni on 14/06/2016.
 //  Copyright © 2016 Alessandro Manni. All rights reserved.
 //
 
