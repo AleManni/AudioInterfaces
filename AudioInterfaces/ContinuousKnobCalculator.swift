@@ -35,7 +35,7 @@ class ContinuousKnobCalculator: KnobDelegate {
     var delta: CGFloat {
             guard let selectedAngleDegr = selectedAngleDegr else { return 0.0 }
             var deltaRaw = (selectedAngleDegr - startAngleDegr)
-            if selectedAngleDegr < startAngleDegr  && selectedAngleDegr < endAngleDegr {
+            if selectedAngleDegr <= startAngleDegr  && selectedAngleDegr <= endAngleDegr {
                 return selectedAngleDegr + (360 - startAngleDegr)
             }
             
