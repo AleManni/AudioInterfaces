@@ -57,9 +57,6 @@ enum patch {
         setUpSwitch()
     }
     
-    
-    
-    
     fileprivate func setUpPadController () {
         PadController.patchType = patchTo
         PadController.gridColor = gridColor
@@ -96,6 +93,7 @@ enum patch {
         self.addSubview(titleLabel2)
         self.addSubview(valueLabel2)
         
+        
         for label in labels {
             label.font = Constants.Fonts().smallFont 
             label.sizeToFit()
@@ -111,7 +109,6 @@ enum patch {
                 label.textColor = UIColor.black
                 label.textAlignment = .right
             }
-            
             
             label.translatesAutoresizingMaskIntoConstraints = false
             let widthContraint = NSLayoutConstraint(item: label, attribute: .width, relatedBy: .equal, toItem: PadController, attribute: .width, multiplier: 0.25, constant: 0)
@@ -176,7 +173,7 @@ enum patch {
         button.showsTouchWhenHighlighted = true
         button.titleLabel!.font = Constants.Fonts().smallFont
         button.titleLabel?.minimumScaleFactor = 0.5
-        button.titleLabel?.allowsDefaultTighteningForTruncation
+        button.titleLabel?.allowsDefaultTighteningForTruncation = true
         button.translatesAutoresizingMaskIntoConstraints = false
         
         let widthConstraint = NSLayoutConstraint(item: button, attribute: .width, relatedBy: .equal, toItem: PadController, attribute: .width, multiplier: 0.25, constant: 0)
@@ -192,8 +189,8 @@ enum patch {
     }
     
     func performButtonAction () {
-        if let _ = buttonAction {
-            buttonAction!()
+        if let buttonAction = buttonAction {
+            buttonAction()
         }
     }
     

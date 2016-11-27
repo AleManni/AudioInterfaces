@@ -11,7 +11,6 @@ import UIKit
 
 class TapTempoCalculator {
     
-    // var managedPad: SteppedKnobProtocol?
     var tapArray: [TimeInterval] = []
     
     
@@ -29,7 +28,7 @@ class TapTempoCalculator {
     
     var BPM: Int = 0
 
-    func didTapTempo () {
+    func didTapTempo() {
         
         storeTaps(Date().timeIntervalSinceReferenceDate)
         calculateAverageTime()
@@ -44,7 +43,7 @@ class TapTempoCalculator {
             return
         }
         
-        //If more than 2 sec elapsed since the last tap, the array is emptied as we assume that the previous taps should not been taken in consideration
+        //If more than 2 sec elapsed since the last tap, the array is cleared as we assume that the previous taps should not been taken in consideration
         if tapTime - tapArray.last! > 2.0 {
             tapArray.removeAll()
             tapArray.append(tapTime)
