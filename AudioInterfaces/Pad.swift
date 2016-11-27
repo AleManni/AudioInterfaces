@@ -77,12 +77,22 @@ import UIKit
         switch pan.state {
         case .began, .changed:
             touchPosition = pan.location(in: self)
-            guard let del = delegate as! TwoParametersCalculator? else {return}
+            guard let del = delegate as! TwoParametersCalculator? else { return }
+            if pan.state == .began {
+                UIView.animate(withDuration: 0.3, animations: {
+                    self.pointer.frame = CGRect(x: self.pointer.frame.origin.x, y: self.pointer.frame.origin.y, width: 20, height: 20)})
+            }
             let outValues: (value1: CGFloat, value2:CGFloat) = del.valuesForNewPosition(touchPosition!)
             outputValues.value1 = outValues.value1
             outputValues.value2 = outValues.value2
             self.viewDelegate?.didUpdateValues(outputValues.value1, value2: outputValues.value2)
             repositionPointer((outputValues.value1, outputValues.value2))
+            
+        case.ended:
+            UIView.animate(withDuration: 0.3, animations: {
+                self.pointer.frame = CGRect(x: self.pointer.frame.origin.x, y: self.pointer.frame.origin.y, width: 12, height: 12)})
+            break
+            
         default:
             break
         }
@@ -91,17 +101,16 @@ import UIKit
     func repositionPointer(_ values: (value1: CGFloat, value2: CGFloat)?) {
         guard let touch = touchPosition else {
             if values != nil {
-                guard let delegate = self.delegate as? TwoParametersCalculator else {return}
-            let centre = delegate.pointerPositionForValues(values!)
+                guard let delegate = self.delegate as? TwoParametersCalculator else { return }
+                let centre = delegate.pointerPositionForValues(values!)
                 pointer.center = centre
-                pointer.setNeedsLayout()
+                setNeedsLayout()
             }
             return
         }
         pointer.center = touch
-        pointer.setNeedsLayout()
+        setNeedsLayout()
     }
-    
     
     func didTap() {
         if let delegate = self.delegate as? TapTempoCalculator {
@@ -246,35 +255,35 @@ import UIKit
         
         
         
-            
-            for i in 0...(Int (maximumValuePar1)) {
         
-                leadStart = CGPoint(x: self.bounds.minX, y: self.bounds.maxY)
-                endPoint =  CGPoint (x: self.bounds.minX, y: self.bounds.minY)
-                
-                
-                context?.setLineWidth(lineWidth)
-                //1
-                context?.move(to: CGPoint(x: leadStart.x + leadSpaceBetweenLines * CGFloat(i), y: leadStart.y))
-                context?.addLine(to: CGPoint(x: endPoint.x + leadSpaceBetweenLines * CGFloat(i), y: endPoint.y))
-                
-            }
+        for i in 0...(Int (maximumValuePar1)) {
+            
+            leadStart = CGPoint(x: self.bounds.minX, y: self.bounds.maxY)
+            endPoint =  CGPoint (x: self.bounds.minX, y: self.bounds.minY)
             
             
-            for i in 0...(Int (maximumValuePar2)) {
-                
-                leadStart = CGPoint (x: self.bounds.minX, y: self.bounds.minY)
-                endPoint = CGPoint (x: self.bounds.maxX, y: self.bounds.minY)
-                
-                
-                context?.setLineWidth(lineWidth)
-                
-                //3
-                context?.move(to: CGPoint(x: leadStart.x, y: leadStart.y + (secondarySpaceBetweenLines * CGFloat(i))))
-                context?.addLine(to: CGPoint(x: endPoint.x, y: endPoint.y + (secondarySpaceBetweenLines * CGFloat(i))))
-                }
+            context?.setLineWidth(lineWidth)
+            //1
+            context?.move(to: CGPoint(x: leadStart.x + leadSpaceBetweenLines * CGFloat(i), y: leadStart.y))
+            context?.addLine(to: CGPoint(x: endPoint.x + leadSpaceBetweenLines * CGFloat(i), y: endPoint.y))
+            
+        }
         
-               
+        
+        for i in 0...(Int (maximumValuePar2)) {
+            
+            leadStart = CGPoint (x: self.bounds.minX, y: self.bounds.minY)
+            endPoint = CGPoint (x: self.bounds.maxX, y: self.bounds.minY)
+            
+            
+            context?.setLineWidth(lineWidth)
+            
+            //3
+            context?.move(to: CGPoint(x: leadStart.x, y: leadStart.y + (secondarySpaceBetweenLines * CGFloat(i))))
+            context?.addLine(to: CGPoint(x: endPoint.x, y: endPoint.y + (secondarySpaceBetweenLines * CGFloat(i))))
+        }
+        
+        
         context?.setStrokeColor(gridColor.cgColor)
         context?.setLineWidth(lineWidth)
         context?.strokePath()
@@ -284,8 +293,8 @@ import UIKit
         self.layer.borderWidth = 2.0
         self.clipsToBounds = true
         
-}
-
+    }
+    
 }
 
 

@@ -14,19 +14,10 @@ import QuartzCore
     var color: UIColor = UIColor.black
     
     override func draw(_ rect: CGRect) {
-        
-        let center = CGPoint(x:5, y: 5)
-        
-        let radius: CGFloat = 5.0
-        
-        let circlePath = UIBezierPath(arcCenter: center,
-                                      radius: radius,
-                                      startAngle: CGFloat(0),
-                                      endAngle:CGFloat(M_PI * 2),
-                                      clockwise: true)
-        
+        let circlePath = UIBezierPath(ovalIn: rect)
+        print(rect)
         color.setFill()
         circlePath.fill()
-        
     }
+    
 }
