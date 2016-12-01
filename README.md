@@ -1,7 +1,7 @@
 # AudioInterfaces
 
 Audio interfaces is a work in progress library aiming to provide designables and highly customizable UIs to be used in conjunction with a third party Audio framework (e.g. Audiokit)
-Some CG designables have been largerly inspired by Ray Wenderlich tuts but noticeable improvements have been made in terms of:
+Some CG designables have been largerly inspired by Ray Wenderlich tuts but substantial improvements have been made in terms of:
 - Added features
 - Architecture 
 - Drawing logic
