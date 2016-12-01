@@ -37,7 +37,7 @@ class RotationGestureRecognizer: UIPanGestureRecognizer {
     }
     
     func rotationForLocation(_ location: CGPoint) -> CGFloat {
-        //The tangent of the rotation, that is the touch angle, is given by the ratio h/w of the right angle triangule inscribed in the circumference (knob). This is the triangle having its top angle located at the touch point, its bottom angle at the centre of the circumference (this is the touch angle) and its last angle (the right angle) not adjacent to the cricumference.
+        //The tangent of the rotation, that is the touch angle, is given by the ratio h/w of the right angle triangule inscribed in the circumference (knob). This is the triangle having its top angle located at the touch point, its bottom angle at the centre of the circumference (touch angle) and its last angle (the right angle) not adjacent to the cricumference.
         let offset = CGPoint(x: location.x - view!.bounds.midX, y: location.y - view!.bounds.midY)
         return atan2(offset.y, offset.x)
     }
