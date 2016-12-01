@@ -66,7 +66,7 @@ enum angleSections: CGFloat {
         super.awakeFromNib()
         rotationGestureRecognizer = RotationGestureRecognizer(target: self, action: #selector(SimpleKnob.didReceiveTouch(_:)))
         self.addGestureRecognizer(rotationGestureRecognizer!)
-        let calculator = ContinuousKnobCalculator()
+        let calculator = KnobCalculator()
         self.delegate = calculator
         valueLabelSetUp()
         self.addSubview(valueLabel)
@@ -167,7 +167,7 @@ enum angleSections: CGFloat {
     
     
     func updateValueLabel () {
-        if let knobDelegate = delegate as? ContinuousKnobCalculator {
+        if let knobDelegate = delegate as? KnobCalculator {
         let outputValue = knobDelegate.calculateOutputValue(self, sender: self)
         valueLabel.text = NSString(format:"%.1f", outputValue) as String
         valueLabel.layoutIfNeeded()
@@ -176,7 +176,7 @@ enum angleSections: CGFloat {
     
     func didReceiveTouch (_ sender: AnyObject) {
         
-        if let knobDelegate = delegate as? ContinuousKnobCalculator {
+        if let knobDelegate = delegate as? KnobCalculator {
             knobDelegate.handleRotationforKnob(self, sender: rotationGestureRecognizer!)
             updateValueLabel()
             setNeedsDisplay()

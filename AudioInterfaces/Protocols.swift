@@ -19,12 +19,7 @@ protocol KnobProtocol {
     var maxValue: Int {set get}
 }
 
-protocol SteppedKnobProtocol {
-    var knobStartAngle: CGFloat {get}
-    var knobEndAngle: CGFloat {get}
-    var touchValueInDegrees: CGFloat  {set get}
-    var minValue: Int {set get}
-    var maxValue: Int {set get}
+protocol SteppedKnobProtocol: KnobProtocol {
     var primaryMarksMultiplier: UInt {set get}
     var secondaryMarksMultiplier: UInt {set get}
 }
@@ -41,10 +36,6 @@ protocol KnobDelegate {
     func calculateOutputValue <T:KnobProtocol> (_ knob: T, sender: AnyObject) -> CGFloat
 }
 
-protocol SteppedKnobDelegate {
-    func handleRotationforSteppedKnob <T:SteppedKnobProtocol> (_ steppedKnob: T, sender: AnyObject)
-    func calculateOutputValue <T:SteppedKnobProtocol> (_ steppedKnob: T, sender: AnyObject) -> CGFloat
-}
 
 protocol PadDelegate {
     func didUpdateValues(_ value1: CGFloat, value2: CGFloat)

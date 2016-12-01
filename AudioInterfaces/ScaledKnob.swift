@@ -32,7 +32,7 @@ class ScaledKnob: SimpleKnob, SteppedKnobProtocol {
         super.awakeFromNib()
         rotationGestureRecognizer = RotationGestureRecognizer(target: self, action: #selector(SimpleKnob.didReceiveTouch(_:)))
         self.addGestureRecognizer(rotationGestureRecognizer!)
-        let calculator = SteppedKnobCalculator()
+        let calculator = KnobCalculator()
         self.delegate = calculator
         valueLabelSetUp()
         self.addSubview(valueLabel)
@@ -101,7 +101,7 @@ class ScaledKnob: SimpleKnob, SteppedKnobProtocol {
     
     override func didReceiveTouch (_ sender: AnyObject) {
         
-        if let knobDelegate = delegate as? SteppedKnobCalculator {
+        if let knobDelegate = delegate as? KnobCalculator {
             knobDelegate.handleRotationforSteppedKnob(self, sender: rotationGestureRecognizer!)
             let outputValue = knobDelegate.calculateOutputValue(self, sender: self)
             valueLabel.text = NSString(format:"%.1f", outputValue) as String
@@ -111,7 +111,7 @@ class ScaledKnob: SimpleKnob, SteppedKnobProtocol {
     }
     
     override func updateValueLabel () {
-        if let knobDelegate = delegate as? SteppedKnobCalculator {
+        if let knobDelegate = delegate as? KnobCalculator {
             let outputValue = knobDelegate.calculateOutputValue(self, sender: self)
             valueLabel.text = NSString(format:"%.1f", outputValue) as String
             valueLabel.layoutIfNeeded()
