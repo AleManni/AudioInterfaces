@@ -15,7 +15,6 @@ import QuartzCore
     
     override func draw(_ rect: CGRect) {
         let circlePath = UIBezierPath(ovalIn: rect)
-        print(rect)
         color.setFill()
         circlePath.fill()
     }
