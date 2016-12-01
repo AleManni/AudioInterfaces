@@ -12,7 +12,9 @@ import UIKit
 class KnobCalculator: KnobDelegate {
     
     internal var managedKnob: KnobProtocol?
+    
     fileprivate var deltaOldValue: CGFloat = 0.0
+    
     fileprivate var startAngleDegr: CGFloat {
         guard let knob = managedKnob else { return 0 }
         return knob.knobStartAngle.radiansToDegrees()
@@ -37,11 +39,9 @@ class KnobCalculator: KnobDelegate {
         
         if deltaValue > angleRangeDegr {
             if (deltaOldValue - startAngleDegr) > (endAngleDegr - deltaOldValue) {
-                deltaOldValue = angleRangeDegr
-                deltaValue = deltaOldValue
+                deltaValue = angleRangeDegr
             } else {
-                deltaOldValue = 0
-                deltaValue = deltaOldValue
+                deltaValue = 0
             }
         }
         deltaOldValue = deltaValue
@@ -69,20 +69,20 @@ class KnobCalculator: KnobDelegate {
 
 //Extension for knobs comforming to SteppedKnobProtocol
 extension KnobCalculator  {
-
+    
     private var valueRange: CGFloat {
         guard let knob = managedKnob as? SteppedKnobProtocol else { return 0 }
         return CGFloat(knob.maxValue - knob.minValue)
     }
-
+    
     // Step the delta on the basis of the minimum interval (step) defined for the knob scale
     private func step(delta: CGFloat, primaryMarksMultiplier: UInt, secondaryMarksMultiplier: UInt) -> CGFloat {
-    let numberOfSteps = (secondaryMarksMultiplier > 0) ? secondaryMarksMultiplier : (primaryMarksMultiplier > 0) ? primaryMarksMultiplier : UInt(delta)
-    let stepDegrees = angleRangeDegr / (valueRange * CGFloat(numberOfSteps))
-    let partial = round(delta/stepDegrees)
-    let deltaFinal = partial * stepDegrees
-    deltaOldValue = deltaFinal
-    return deltaFinal
+        let numberOfSteps = (secondaryMarksMultiplier > 0) ? secondaryMarksMultiplier : (primaryMarksMultiplier > 0) ? primaryMarksMultiplier : UInt(delta)
+        let stepDegrees = angleRangeDegr / (valueRange * CGFloat(numberOfSteps))
+        let partial = round(delta/stepDegrees)
+        let deltaFinal = partial * stepDegrees
+        deltaOldValue = deltaFinal
+        return deltaFinal
     }
     
     public func handleRotationforSteppedKnob<T: SteppedKnobProtocol>(_ knob: T, sender: AnyObject) {
