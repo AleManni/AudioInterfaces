@@ -22,7 +22,7 @@ enum angleSections: CGFloat {
     let π = Constants.sharedValues.π
     let padding = Constants.sharedValues.padding
     
-    var delegate: AnyObject?
+    let delegate: KnobDelegate = KnobCalculator()
     
     let valueLabel = UILabel()
     
@@ -31,13 +31,13 @@ enum angleSections: CGFloat {
     @IBInspectable var knobStrokeDimension: CGFloat = Constants.sharedValues.knobDimension
     @IBInspectable var minValue: Int = 0
     @IBInspectable var maxValue: Int = 10
+    @IBInspectable var touchValueInDegrees: CGFloat = 0.0
     
     var valueRange: Int {
         get {
             return maxValue - minValue
         }
     }
-    
     
     var startAngle: angleSections = .threeQuarters
     var endAngle: angleSections = .quarter
@@ -54,24 +54,15 @@ enum angleSections: CGFloat {
         }
     }
     
-    
-    
-    
-    @IBInspectable var touchValueInDegrees: CGFloat = 0.0
-    
     var rotationGestureRecognizer: RotationGestureRecognizer?
-    
     
     override func awakeFromNib() {
         super.awakeFromNib()
         rotationGestureRecognizer = RotationGestureRecognizer(target: self, action: #selector(SimpleKnob.didReceiveTouch(_:)))
         self.addGestureRecognizer(rotationGestureRecognizer!)
-        let calculator = KnobCalculator()
-        self.delegate = calculator
         valueLabelSetUp()
         self.addSubview(valueLabel)
     }
-    
     
     func valueLabelSetUp() {
         let dimension: CGFloat = 86.0
@@ -82,12 +73,10 @@ enum angleSections: CGFloat {
         valueLabel.textAlignment = .center
         valueLabel.font = UIFont(name: "HelveticaNeue-Bold",
                                  size: 20.0)
-        
     }
     
     
     //MARK: Draw functions
-    
     override func draw(_ rect: CGRect) {
         
         drawTheInLine()
@@ -129,7 +118,7 @@ enum angleSections: CGFloat {
         let arcWidth: CGFloat = knobStrokeDimension
         let center = CGPoint(x:bounds.width/2, y: bounds.height/2)
         let angleDifference: CGFloat = 2 * π - knobStartAngle + knobEndAngle
-        let angleRangeDegr = RadiansToDegrees(Double (angleDifference))
+        let angleRangeDegr = angleDifference.radiansToDegrees()
         
         //Calculate the arc for each single interval
         
@@ -162,10 +151,6 @@ enum angleSections: CGFloat {
     }
     
     //MARK: Actions
-    
-    
-    
-    
     func updateValueLabel () {
         if let knobDelegate = delegate as? KnobCalculator {
         let outputValue = knobDelegate.calculateOutputValue(self, sender: self)
@@ -175,21 +160,10 @@ enum angleSections: CGFloat {
     }
     
     func didReceiveTouch (_ sender: AnyObject) {
-        
         if let knobDelegate = delegate as? KnobCalculator {
             knobDelegate.handleRotationforKnob(self, sender: rotationGestureRecognizer!)
             updateValueLabel()
             setNeedsDisplay()
         }
-    }
-    
-    //MARK: Utilities
-    
-    func RadiansToDegrees (_ value:Double) -> Double {
-        var result = value * (180.0 / M_PI)
-        if result < 0 {
-            result += 360
-        }
-        return result
     }
 }

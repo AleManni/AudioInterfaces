@@ -11,7 +11,7 @@ import UIKit
 
 class KnobCalculator: KnobDelegate {
     
-    fileprivate var managedKnob: KnobProtocol?
+    internal var managedKnob: KnobProtocol?
     fileprivate var deltaOldValue: CGFloat = 0.0
     fileprivate var startAngleDegr: CGFloat {
         guard let knob = managedKnob else { return 0 }
@@ -27,9 +27,9 @@ class KnobCalculator: KnobDelegate {
         return differenceDegrees(angle1: endAngleDegr, angle2: startAngleDegr)
     }
     
-    fileprivate var selectedAngleDegr: CGFloat?
+    internal var selectedAngleDegr: CGFloat?
     
-    fileprivate var delta: CGFloat {
+    internal var delta: CGFloat {
         guard let selectedAngleDegr = selectedAngleDegr else { return 0.0 }
         var deltaValue = differenceDegrees(angle1: selectedAngleDegr, angle2: startAngleDegr)
         
@@ -48,7 +48,7 @@ class KnobCalculator: KnobDelegate {
         return deltaValue
     }
     
-    public func handleRotationforKnob<T:KnobProtocol>(_ knob: T, sender: AnyObject) {
+    public func handleRotationforKnob<T: KnobProtocol>(_ knob: T, sender: AnyObject) {
         managedKnob = knob
         let gr = sender as! RotationGestureRecognizer
         selectedAngleDegr = gr.rotation.radiansToDegrees()
@@ -57,9 +57,9 @@ class KnobCalculator: KnobDelegate {
     }
     
     fileprivate func updateKnobWithNewValue<T:KnobProtocol>(_ knob: T, value: CGFloat) {
-        var managedKnob = knob
-        selectedAngleDegr = ((angleRangeDegr / CGFloat(managedKnob.maxValue)) * value) + startAngleDegr
-        managedKnob.touchValueInDegrees = delta
+        managedKnob = knob
+        selectedAngleDegr = ((angleRangeDegr / CGFloat((managedKnob?.maxValue)!)) * value) + startAngleDegr
+        managedKnob?.touchValueInDegrees = delta
     }
     
     internal func calculateOutputValue <T:KnobProtocol> (_ knob: T, sender: AnyObject) -> CGFloat {

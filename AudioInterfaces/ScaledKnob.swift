@@ -26,14 +26,10 @@ class ScaledKnob: SimpleKnob, SteppedKnobProtocol {
         }
     }
     
-    
-
     override func awakeFromNib() {
         super.awakeFromNib()
         rotationGestureRecognizer = RotationGestureRecognizer(target: self, action: #selector(SimpleKnob.didReceiveTouch(_:)))
         self.addGestureRecognizer(rotationGestureRecognizer!)
-        let calculator = KnobCalculator()
-        self.delegate = calculator
         valueLabelSetUp()
         self.addSubview(valueLabel)
     }
@@ -73,24 +69,24 @@ class ScaledKnob: SimpleKnob, SteppedKnobProtocol {
         let valueRange = self.maxValue - self.minValue
         
         if multiplier >= 1 {
-        
-        for i in 1...valueRange * Int(multiplier) {
             
-            context?.saveGState()
-            
-            let arcLenghtPerSubUnit = arcLengthPerUnitValue/CGFloat(multiplier)
-            
-            let angle = (arcLenghtPerSubUnit * CGFloat(i)) + knobStartAngle - π/2
-        
-            
-            context?.rotate(by: angle)
-            context?.translateBy(x: 0,
-                                  y: self.bounds.size.height/2 - markerSize)
-            
-            markerPath.fill()
-            
-            context?.restoreGState()
-        }
+            for i in 1...valueRange * Int(multiplier) {
+                
+                context?.saveGState()
+                
+                let arcLenghtPerSubUnit = arcLengthPerUnitValue/CGFloat(multiplier)
+                
+                let angle = (arcLenghtPerSubUnit * CGFloat(i)) + knobStartAngle - π/2
+                
+                
+                context?.rotate(by: angle)
+                context?.translateBy(x: 0,
+                                     y: self.bounds.size.height/2 - markerSize)
+                
+                markerPath.fill()
+                
+                context?.restoreGState()
+            }
         }
         
         context?.restoreGState()
