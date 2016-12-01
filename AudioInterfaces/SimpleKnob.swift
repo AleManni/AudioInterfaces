@@ -22,7 +22,7 @@ enum angleSections: CGFloat {
     let π = Constants.sharedValues.π
     let padding = Constants.sharedValues.padding
     
-    var delegate:AnyObject?
+    var delegate: AnyObject?
     
     let valueLabel = UILabel()
     

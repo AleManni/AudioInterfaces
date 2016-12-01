@@ -10,6 +10,8 @@
 		1D70BFB71D311CB2003D604B /* SwitchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D70BFB61D311CB2003D604B /* SwitchView.swift */; };
 		1D70BFB91D311CC1003D604B /* SwitchView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D70BFB81D311CC1003D604B /* SwitchView.xib */; };
 		1D90629F1DE1CDB100053E35 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D90629E1DE1CDB100053E35 /* Extensions.swift */; };
+		1D98FC221DEB45F600EE4CF3 /* Mocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D98FC211DEB45F600EE4CF3 /* Mocks.swift */; };
+		1D98FC241DF07F6800EE4CF3 /* PublicFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D98FC231DF07F6800EE4CF3 /* PublicFunctions.swift */; };
 		1DAAEB3B1D2FA3C60058E5CF /* TwoParametersCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DAAEB3A1D2FA3C60058E5CF /* TwoParametersCalculator.swift */; };
 		1DAAEB5B1D3026160058E5CF /* PointerCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DAAEB5A1D3026160058E5CF /* PointerCircle.swift */; };
 		5A8FC8ED1D0D4442006C5A20 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8FC8EC1D0D4442006C5A20 /* AppDelegate.swift */; };
@@ -44,6 +46,8 @@
 		1D70BFB61D311CB2003D604B /* SwitchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchView.swift; sourceTree = "<group>"; };
 		1D70BFB81D311CC1003D604B /* SwitchView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SwitchView.xib; sourceTree = "<group>"; };
 		1D90629E1DE1CDB100053E35 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		1D98FC211DEB45F600EE4CF3 /* Mocks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mocks.swift; sourceTree = "<group>"; };
+		1D98FC231DF07F6800EE4CF3 /* PublicFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicFunctions.swift; sourceTree = "<group>"; };
 		1DAAEB3A1D2FA3C60058E5CF /* TwoParametersCalculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwoParametersCalculator.swift; sourceTree = "<group>"; };
 		1DAAEB5A1D3026160058E5CF /* PointerCircle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PointerCircle.swift; sourceTree = "<group>"; };
 		5A8FC8E91D0D4442006C5A20 /* AudioInterfaces.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AudioInterfaces.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -135,6 +139,7 @@
 		5A8FC9001D0D4442006C5A20 /* AudioInterfacesTests */ = {
 			isa = PBXGroup;
 			children = (
+				1D98FC211DEB45F600EE4CF3 /* Mocks.swift */,
 				5A8FC9011D0D4442006C5A20 /* AudioInterfacesTests.swift */,
 				5A8FC9031D0D4442006C5A20 /* Info.plist */,
 			);
@@ -148,6 +153,7 @@
 				5A8FC9121D0D47E8006C5A20 /* RotationGestureRecognizer.swift */,
 				BD6B22AC1D0EDB2000E61F04 /* Protocols.swift */,
 				1D90629E1DE1CDB100053E35 /* Extensions.swift */,
+				1D98FC231DF07F6800EE4CF3 /* PublicFunctions.swift */,
 			);
 			name = Shared;
 			sourceTree = "<group>";
@@ -281,6 +287,7 @@
 				BD6B22AF1D0F085C00E61F04 /* ScaledKnob.swift in Sources */,
 				5A8FC91A1D0D89CF006C5A20 /* ViewController.swift in Sources */,
 				5A8FC9151D0D48B6006C5A20 /* SimpleKnob.swift in Sources */,
+				1D98FC241DF07F6800EE4CF3 /* PublicFunctions.swift in Sources */,
 				1DAAEB3B1D2FA3C60058E5CF /* TwoParametersCalculator.swift in Sources */,
 				1DAAEB5B1D3026160058E5CF /* PointerCircle.swift in Sources */,
 				5A8FC9101D0D47AF006C5A20 /* ContinuousKnobCalculator.swift in Sources */,
@@ -301,6 +308,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5A8FC9021D0D4442006C5A20 /* AudioInterfacesTests.swift in Sources */,
+				1D98FC221DEB45F600EE4CF3 /* Mocks.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

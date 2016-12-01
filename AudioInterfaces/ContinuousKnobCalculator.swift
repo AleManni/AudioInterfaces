@@ -26,40 +26,39 @@ class ContinuousKnobCalculator: KnobDelegate {
     }
     
     fileprivate var angleRangeDegr: CGFloat {
-        guard let knob = managedKnob else { return 0 }
-        return (knob.knobEndAngle - knob.knobStartAngle).radiansToDegrees()
+        return differenceDegrees(angle1: endAngleDegr, angle2: startAngleDegr)
     }
     
     var selectedAngleDegr: CGFloat?
     
     var delta: CGFloat {
-            guard let selectedAngleDegr = selectedAngleDegr else { return 0.0 }
-            var deltaRaw = (selectedAngleDegr - startAngleDegr)
-            if selectedAngleDegr <= startAngleDegr  && selectedAngleDegr <= endAngleDegr {
-                return selectedAngleDegr + (360 - startAngleDegr)
+        guard let selectedAngleDegr = selectedAngleDegr else { return 0.0 }
+        var deltaValue = differenceDegrees(angle1: selectedAngleDegr, angle2: startAngleDegr)
+        
+        //Apply top and bottom scale for delta. When SelectedAngleDegree is out of scale, delta will retain either the max or min value depending on the value of the the previous touch - rendering the area between the start and end of pot "insensitive"
+        
+        if deltaValue > angleRangeDegr {
+            if (deltaOldValue - startAngleDegr) > (endAngleDegr - deltaOldValue) {
+                deltaOldValue = angleRangeDegr
+                deltaValue = deltaOldValue
+            } else {
+                deltaOldValue = 0
+                deltaValue = deltaOldValue
             }
-            
-            //Apply top and bottom scale for delta. When SelectedAngleDegree is out of scale, delta will retain either the max or min value depending on the value of the the previous touch - rendering the area between the start and end of pot "insensitive"
-            
-            if selectedAngleDegr > endAngleDegr && selectedAngleDegr < startAngleDegr {
-                if (deltaOldValue - startAngleDegr) > (endAngleDegr - deltaOldValue) {
-                    deltaOldValue = angleRangeDegr
-                    deltaRaw = deltaOldValue
-                } else {
-                    deltaOldValue = 0
-                    deltaRaw = deltaOldValue
-                }
-            }
-            deltaOldValue = deltaRaw
-            return deltaRaw
+        }
+        deltaOldValue = deltaValue
+        return deltaValue
     }
     
     func handleRotationforKnob<T:KnobProtocol>(_ knob: T, sender: AnyObject) {
         managedKnob = knob
         let gr = sender as! RotationGestureRecognizer
         selectedAngleDegr = gr.rotation.radiansToDegrees()
+        print ("selectedAngleDegr = \(selectedAngleDegr!)" )
+        print("start angle degree = \(startAngleDegr)")
         //Update the knob
         managedKnob!.touchValueInDegrees = delta
+        print(managedKnob!.touchValueInDegrees)
     }
     
     func updateKnobWithNewValue<T:KnobProtocol>(_ knob: T, value: CGFloat) {
