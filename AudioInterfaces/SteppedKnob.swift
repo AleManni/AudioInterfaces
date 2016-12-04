@@ -1,5 +1,5 @@
 //
-//  ScaledKnob.swift
+//  SteppedKnob.swift
 //  AudioInterfaces
 //
 //  Created by Alessandro Manni on 12/06/2016.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ScaledKnob: SimpleKnob, SteppedKnobProtocol {
+class SteppedKnob: SimpleKnob, SteppedKnobProtocol {
     
     //Note: Primary marks multiplier sets the multiplier applied to the valuerange unit in order to draw the primary marks of the rotary scale. E.g. for a value scale of min Value 1.0 to maxValue 10.0 the result will be 10 marks being drawn when the mutiplier is = 1.0 (default value). For a value of 2 the marks will be 20, etc.. Similarly, the secondary marks multipier defines the multiplier for the secondary (shorter) marks, still applied to the valuerange.
     
