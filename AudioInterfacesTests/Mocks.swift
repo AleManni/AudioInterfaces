@@ -17,12 +17,12 @@ class mockCalculator: KnobCalculator {
         self.selectedAngleDegr = selectedAngleDegr
         managedKnob?.touchValueInDegrees = delta
     }
-
+    
     func handleRotationforSteppedKnob<T: SteppedKnobProtocol>(_ knob: T, selectedAngleDegr: CGFloat) {
-    managedKnob = knob
-    self.selectedAngleDegr = selectedAngleDegr
-    //Update the knob
-    managedKnob!.touchValueInDegrees = self.step(delta: delta, primaryMarksMultiplier: knob.primaryMarksMultiplier, secondaryMarksMultiplier: knob.secondaryMarksMultiplier)
-}
+        managedKnob = knob
+        self.selectedAngleDegr = selectedAngleDegr
+        //Update the knob
+        managedKnob!.touchValueInDegrees = self.step(delta: delta, primaryMarksMultiplier: knob.primaryMarksMultiplier, secondaryMarksMultiplier: knob.secondaryMarksMultiplier)
+    }
 }
 
