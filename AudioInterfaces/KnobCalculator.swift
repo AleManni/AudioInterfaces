@@ -67,7 +67,7 @@ class KnobCalculator: KnobDelegate {
     }
 }
 
-//Extension for knobs comforming to SteppedKnobProtocol
+//MARK: - Extension for knobs comforming to SteppedKnobProtocol
 extension KnobCalculator  {
     
     private var valueRange: CGFloat {
@@ -76,7 +76,7 @@ extension KnobCalculator  {
     }
     
     // Step the delta on the basis of the minimum interval (step) defined for the knob scale
-    private func step(delta: CGFloat, primaryMarksMultiplier: UInt, secondaryMarksMultiplier: UInt) -> CGFloat {
+    internal func step(delta: CGFloat, primaryMarksMultiplier: UInt, secondaryMarksMultiplier: UInt) -> CGFloat {
         let numberOfSteps = (secondaryMarksMultiplier > 0) ? secondaryMarksMultiplier : (primaryMarksMultiplier > 0) ? primaryMarksMultiplier : UInt(delta)
         let stepDegrees = angleRangeDegr / (valueRange * CGFloat(numberOfSteps))
         let partial = round(delta/stepDegrees)
