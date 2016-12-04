@@ -21,6 +21,8 @@ class AudioInterfacesTests: XCTestCase {
         super.tearDown()
     }
     
+    //MARK: - Knobs and calculators
+    
     func testSimpleKnobDefaultInit() {
         let knob = SimpleKnob()
         XCTAssertTrue(knob.startAngle == .threeQuarters, "Default start angle value should be ThreeQuarters")
@@ -29,30 +31,45 @@ class AudioInterfacesTests: XCTestCase {
         XCTAssertTrue(knob.maxValue == 10, "Default max value should be 10")
     }
     
-    func testKnobCalculator() {
-        
-        class mockCalculator: KnobCalculator {
+    func testSteppedKnobDefaultInit() {
+        let knob = SteppedKnob()
+        XCTAssertTrue(knob.primaryMarksMultiplier == 1, "Default start value should be 1")
+        XCTAssertTrue(knob.secondaryMarksMultiplier == 0, "Default start value should be 0")
+        XCTAssertTrue(knob.startAngle == .threeQuarters, "Default start angle value should be ThreeQuarters")
+        XCTAssertTrue(knob.endAngle == .quarter, "Default end angle value should be .Quarter")
+        XCTAssertTrue(knob.minValue == 0, "Default minvalue should be 0")
+        XCTAssertTrue(knob.maxValue == 10, "Default max value should be 10")
+    }
     
-            func handleRotationforMockKnob<T: KnobProtocol>(_ knob: T, selectedAngleDegr: CGFloat) -> CGFloat {
-                managedKnob = knob
-                //Update the knob
-                self.selectedAngleDegr = selectedAngleDegr
-                return delta
-            }
-        }
+    func testKnobCalculator() {
         
         let knob = SimpleKnob()
         let calculator = mockCalculator()
         
-        knob.touchValueInDegrees = 0  // This is the resutl of delta calculation and we want to test this
-        calculator.selectedAngleDegr = 0 // This is the input value fed to delta. delta returns the knob.touchvaluesindegrees 
-        //so we will provide a series of selected angel degrees and test the corresponidng result (knob.touchvalueindegree)
         //selected angle at starting position of knob run (lower boundary)
-        let delta1 = calculator.handleRotationforMockKnob(knob, selectedAngleDegr: knob.knobStartAngle.radiansToDegrees())
-        XCTAssertTrue(delta1 == 0.0)
+        calculator.handleRotationforMockKnob(knob, selectedAngleDegr: knob.knobStartAngle.radiansToDegrees())
+        XCTAssertTrue(knob.touchValueInDegrees == 0.0)
+        //selected angle within run boundaries
+        calculator.handleRotationforMockKnob(knob, selectedAngleDegr: 200.0)
+        XCTAssertTrue(knob.touchValueInDegrees == 65, "Value should have been: 65.0 not \( knob.touchValueInDegrees)")
         //Edge case: selected angle outside knob run boundaries
-        let delta2 = calculator.handleRotationforMockKnob(knob, selectedAngleDegr: 200.0)
-        XCTAssertTrue(delta2 == 247.145180038223, "Value should have been: \( knob.touchValueInDegrees)")
+        calculator.handleRotationforMockKnob(knob, selectedAngleDegr: 100.0)
+        XCTAssertTrue(knob.touchValueInDegrees == 0.0, "Value should have been: 0.0 not \( knob.touchValueInDegrees)")
+    }
+    
+    func testSteppedKnobCalculator() {
+        let knob = SteppedKnob()
+        let calculator = mockCalculator()
+        
+        //selected angle at starting position of knob run (lower boundary)
+        calculator.handleRotationforSteppedKnob(knob, selectedAngleDegr: knob.knobStartAngle.radiansToDegrees())
+        XCTAssertTrue(knob.touchValueInDegrees == 0.0)
+        //selected angle within run boundaries
+        calculator.handleRotationforMockKnob(knob, selectedAngleDegr: 200.0)
+        XCTAssertTrue(knob.touchValueInDegrees == 65, "Value should have been: 65.0 not \( knob.touchValueInDegrees)")
+        //Edge case: selected angle outside knob run boundaries
+        calculator.handleRotationforMockKnob(knob, selectedAngleDegr: 100.0)
+        XCTAssertTrue(knob.touchValueInDegrees == 0.0, "Value should have been: 0.0 not \( knob.touchValueInDegrees)")
     }
     
     func testPerformanceExample() {

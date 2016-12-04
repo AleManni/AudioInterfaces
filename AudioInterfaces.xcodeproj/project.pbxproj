@@ -26,7 +26,7 @@
 		5A8FC91A1D0D89CF006C5A20 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8FC9191D0D89CF006C5A20 /* ViewController.swift */; };
 		BD5F50041D116062000F291D /* PadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD5F50031D116062000F291D /* PadView.swift */; };
 		BD6B22AD1D0EDB2000E61F04 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6B22AC1D0EDB2000E61F04 /* Protocols.swift */; };
-		BD6B22AF1D0F085C00E61F04 /* ScaledKnob.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6B22AE1D0F085C00E61F04 /* ScaledKnob.swift */; };
+		BD6B22AF1D0F085C00E61F04 /* SteppedKnob.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6B22AE1D0F085C00E61F04 /* SteppedKnob.swift */; };
 		BD7897D51D12A0930011DFF6 /* TapTempoCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD7897D41D12A0930011DFF6 /* TapTempoCalculator.swift */; };
 		BD7897D71D12A9020011DFF6 /* Pad.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD7897D61D12A9020011DFF6 /* Pad.swift */; };
 /* End PBXBuildFile section */
@@ -65,7 +65,7 @@
 		5A8FC9191D0D89CF006C5A20 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		BD5F50031D116062000F291D /* PadView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PadView.swift; sourceTree = "<group>"; };
 		BD6B22AC1D0EDB2000E61F04 /* Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
-		BD6B22AE1D0F085C00E61F04 /* ScaledKnob.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScaledKnob.swift; sourceTree = "<group>"; };
+		BD6B22AE1D0F085C00E61F04 /* SteppedKnob.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SteppedKnob.swift; sourceTree = "<group>"; };
 		BD7897D41D12A0930011DFF6 /* TapTempoCalculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TapTempoCalculator.swift; sourceTree = "<group>"; };
 		BD7897D61D12A9020011DFF6 /* Pad.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pad.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -171,7 +171,7 @@
 			children = (
 				1D70BFB51D311C8E003D604B /* PadViews */,
 				5A8FC9141D0D48B6006C5A20 /* SimpleKnob.swift */,
-				BD6B22AE1D0F085C00E61F04 /* ScaledKnob.swift */,
+				BD6B22AE1D0F085C00E61F04 /* SteppedKnob.swift */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -281,7 +281,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BD6B22AD1D0EDB2000E61F04 /* Protocols.swift in Sources */,
-				BD6B22AF1D0F085C00E61F04 /* ScaledKnob.swift in Sources */,
+				BD6B22AF1D0F085C00E61F04 /* SteppedKnob.swift in Sources */,
 				5A8FC91A1D0D89CF006C5A20 /* ViewController.swift in Sources */,
 				5A8FC9151D0D48B6006C5A20 /* SimpleKnob.swift in Sources */,
 				1D98FC241DF07F6800EE4CF3 /* PublicFunctions.swift in Sources */,
